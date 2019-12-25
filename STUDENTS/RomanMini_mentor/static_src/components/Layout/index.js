@@ -13,7 +13,7 @@ import Send from '@material-ui/icons/Send'
 import MessageField from '../MessageField'
 import Navigation from '../Navigation'
 
-import './layout.css'
+import './style.css'
 
 const useStyles = theme => ({
 		button: {

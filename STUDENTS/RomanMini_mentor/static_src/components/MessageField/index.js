@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import './messageField.css'
+import './style.css'
 
-import Message from '../Message/'
+import Message from '../Message'
 
 export default class MessageField extends Component {
 

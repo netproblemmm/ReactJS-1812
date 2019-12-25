@@ -2,10 +2,8 @@
 		flex-grow: 1;
 		overflow-y: auto;
 }
-
 .message {
-		color: #008000;
-		/*text-align: center;*/
+		color: green;
 }
 
 .container {
