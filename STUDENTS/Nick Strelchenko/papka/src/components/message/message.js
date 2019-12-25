@@ -1,4 +1,6 @@
 import React from 'react'
+import './massage.css'
+
 
 
 export default class Message extends React.Component{
@@ -14,7 +16,7 @@ export default class Message extends React.Component{
         })
     }
     componentDidUpdate(prevProps) {
-        // Популярный пример (не забудьте сравнить пропсы):
+        
         if (this.props.messageList !== prevProps.messageList) {
           this.setState({
               messageList:[...this.state.messageList,{name:this.props.name,text:this.props.text},{name:'Robot',text:`Я получил твое сообщение ${this.props.name}`}]
@@ -25,13 +27,38 @@ export default class Message extends React.Component{
         
         const Messages=()=>{
             const messages = this.state.messageList.map((i)=>{
-                return(
-                    <div>
-                        <h2>Сообщениe</h2>
-                        <p>Имя автора: {i.name}</p>
-                        <p>Текст сообщения: {i.text}</p>
+                
+                 if (i.name==='Robot'){
+                   return(
+                    <React.Fragment>
+                        <div className='d-flex justify-content-end mb-2 text-success '>
+                            <div className='w-25 messageCard mb-3 mr-1 bg-light rounded'>
+                                <h2 >Робот отвечает</h2>
+                                <p>Имя автора: {i.name}</p>
+                                <span>Текст сообщения: {i.text}</span>
+                            </div>
+                        </div>
+                        
+                    </React.Fragment>
+                    
+                   ) 
+                }
+                else {
+                    return (
+
+                    <div className='text-success'>
+                        <div className='messageCard w-25 mb-2 bg-light rounded d-flex flex-column'>
+                            <h2>Ваше сообщение</h2>
+                            <p>Имя автора: {i.name}</p>
+                            <span>Текст сообщения: {i.text}</span>
+                        </div>
                     </div>
-                ) 
+
+                    )
+                }  
+                
+
+              
             })
             return messages
         }

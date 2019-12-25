@@ -4,7 +4,7 @@ import MessageField from '../message-field'
 export default class App extends React.Component{
     render(){
         return(
-            <div>
+            <div className='h-100'>
                 <MessageField/>
             </div>
         )
