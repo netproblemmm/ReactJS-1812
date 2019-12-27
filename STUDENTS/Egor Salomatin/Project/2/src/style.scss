@@ -1,0 +1,28 @@
+body {
+    height: 100vh;
+}
+
+#root {
+    height: 100%;
+}
+
+.root-container {
+    height: 100%;
+    display: grid;
+    grid-template-areas: 
+    "header"
+    "main"
+    "footer";
+    grid-template-rows: 5vh 1fr 10vh;
+    .header {
+        grid-area: header;
+    }
+    .main {
+        grid-area: main;
+        display: flex;
+        flex-direction: row;
+    }
+    .footer {
+        grid-area: footer;
+    }
+}

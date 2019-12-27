@@ -1,0 +1,12 @@
+.chanels {
+    width: 30vw;
+    height: 80vh;
+    display: block;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    border-right: 2px solid grey;
+    border-bottom: 2px solid grey;
+    .chanels__header {
+        font: 400 16px/16px Arial; 
+    }
+}
