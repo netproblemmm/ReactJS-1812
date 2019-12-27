@@ -13,7 +13,7 @@ import Send from '@material-ui/icons/Send'
 import MessageField from '../MessageField'
 import Navigation from '../Navigation'
 
-import './layout.css'
+import './style.css'
 
 const useStyles = theme => ({
 		button: {
@@ -25,31 +25,57 @@ class Layout extends Component {
 
 		state = {
 				input : '',
-				messages : ['Привет', 'Как дела?'],
+				user: {
+						userName: 'Fred',
+						email: '',
+				},
+				messages : [
+						{sender: 'Fred', text: 'Привет'},
+						{sender: 'Fred', text: 'Как дела?'}
+				],
 		};
+
+		componentDidUpdate (prevProps, prevState) {
+				let prevLength = prevState.messages.length;
+				let stateLength = this.state.messages.length;
+
+				if( prevLength < stateLength
+						&& this.state.messages[stateLength -1].sender === this.state.user.userName ) {
+						setTimeout( () => this.sendMessage('AngryBot', 'I`am Robot'), 1000);
+				}
+
+				document.getElementById('messageField').scrollTop = 9999;
+		}
 
 		handleChange = (event) => {
 				this.setState({ [event.target.name]: event.target.value });
 		};
 
 		handleKeyUp = (event) => {
-				console.log(event.keyCode);
+				// console.log(event.keyCode);
+				event.preventDefault();
 				if (event.keyCode === 13) { // Enter
+
 						this.handleSendMessage( this.state.input );
 				}
 		};
 
-		handleSendMessage (message) {
-				let botMessage = message;
-				this.setState(state => ({
-								messages: state.messages.concat(botMessage),
-						})
-				);
-				this.setState({ input: '' });
+		sendMessage = ( sender, message) => {
+				let text = message;
+				if( text !== '') {
+						this.setState({
+								messages: [...this.state.messages, { sender, text}],
+								input: '',
+						});
+				}
+		};
+
+		handleSendMessage = (message) => {
+				this.sendMessage ( this.state.user.userName, message );
 		};
 
 		render () {
-				const { messages } = this.state;
+				const { messages, input, user  } = this.state;
 
 				const classes = this.props;
 
@@ -60,7 +86,9 @@ class Layout extends Component {
 										<Typography component="div" style={{ backgroundColor: '#cfe8fc', height: '100vh' }} >
 												<div className="container">
 														<Navigation/>
-														<MessageField messages = { messages } />
+														<MessageField
+																user={ user }
+																messages = { messages } />
 														<form style={{display: 'flex'}}>
 																<TextField
 																		id="outlined-full-width"
@@ -76,12 +104,12 @@ class Layout extends Component {
 																		variant="outlined"
 																		name='input'
 																		onChange={ this.handleChange }
-																		onKeyUp={this.handleKeyUp }
+																		onKeyUp={(event) => this.handleKeyUp(event) }
 																		value={ this.state.input }
 																/>
 																<Button
 																		variant="contained"
-																		onClick={() => this.handleSendMessage(this.state.input)}
+																		onClick={() => this.handleSendMessage( input)}
 																		color="secondary"
 																		className={classes.button}
 																		endIcon={<Send/>}
