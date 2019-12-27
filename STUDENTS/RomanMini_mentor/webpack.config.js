@@ -12,7 +12,7 @@ module.exports = {
 		devServer: {
 				contentBase: './dist',
 				port: 3000,
-				hot: true
+				hot: false
 		},
 		module: {
 				rules: [
@@ -51,7 +51,7 @@ module.exports = {
 												loader: 'file-loader',
 												options: {
 														name: '[name].[ext]',
-														outputPath: 'fonts/'
+														outputPath: 'css/fonts/'
 												}
 										}
 								]

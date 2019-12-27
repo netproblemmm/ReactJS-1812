@@ -5,8 +5,12 @@ import './style.css'
 export default class Message extends Component {
 
 		static propTypes = {
+				sender: PropTypes.string.isRequired,
 				text : PropTypes.string.isRequired,
+				align: PropTypes.string.isRequired,
 		};
 
-		render = () => <div className="message">{ this.props.text }</div>
+		render = () => <div
+				style={{ alignSelf: this.props.align }}
+				className="message" >from: { this.props.sender } text: { this.props.text } </div>
 }

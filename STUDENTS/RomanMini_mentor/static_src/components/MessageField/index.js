@@ -8,29 +8,25 @@ export default class MessageField extends Component {
 
 		static propTypes = {
 				messages: PropTypes.array.isRequired,
+				user: PropTypes.object.isRequired,
 		};
 
 		render () {
-				const { messages } = this.props;
+				const { messages, user } = this.props;
+				console.log(user.userName);
 
 				let messageElements = messages.map(message => <Message
 						key={(new Date().getTime()) * Math.random()}
-						text={ message } />);
+						sender={ message.sender }
+						text={ message.text }
+						align={ user.userName == message.sender ? 'flex-end' : 'flex-start' }
+				/>);
 
 				return (
-						<div className="messageField">
+						<div className="messageField" id='messageField'>
 
 										{ messageElements }
 
-								{/*<Button*/}
-										{/*variant="contained"*/}
-										{/*onClick={() => this.handleClick()}*/}
-										{/*color="secondary"*/}
-										{/*className={classes.button}*/}
-										{/*endIcon={<Send/>}*/}
-								{/*>*/}
-										{/*Send*/}
-								{/*</Button>*/}
 						</div>
 				)
 		}
