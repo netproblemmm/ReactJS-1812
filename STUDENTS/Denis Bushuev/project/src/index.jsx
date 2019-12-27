@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap';
 import './style/style.css';
 
-const element = <h1 className="element">Подключили React</h1>
+import Messages from './components/MessageField/MessageField.jsx';
 
-ReactDOM.render(
-    element,
-    document.getElementById('root'),
-);
+let user = 'User';
+
+ReactDOM.render (
+   <Messages user={ user }/>,
+   document.getElementById('root'),
+)
