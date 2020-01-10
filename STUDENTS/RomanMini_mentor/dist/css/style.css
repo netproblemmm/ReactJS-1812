@@ -18,6 +18,7 @@
 		flex-direction: column;
 		justify-content: space-between;
 		height: 100vh;
+		overflow-x: hidden;
 }
 body {
 		/*margin: 0;*/
@@ -36,8 +37,8 @@ body {
   src:
     local('Roboto Thin '),
     local('Roboto-Thin'),
-    url(css/fonts/roboto-latin-100.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-100.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-100.woff2) format('woff2'), 
+    url(fonts/roboto-latin-100.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-100italic - latin */
@@ -49,8 +50,8 @@ body {
   src:
     local('Roboto Thin italic'),
     local('Roboto-Thinitalic'),
-    url(css/fonts/roboto-latin-100italic.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-100italic.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-100italic.woff2) format('woff2'), 
+    url(fonts/roboto-latin-100italic.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-300normal - latin */
@@ -62,8 +63,8 @@ body {
   src:
     local('Roboto Light '),
     local('Roboto-Light'),
-    url(css/fonts/roboto-latin-300.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-300.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-300.woff2) format('woff2'), 
+    url(fonts/roboto-latin-300.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-300italic - latin */
@@ -75,8 +76,8 @@ body {
   src:
     local('Roboto Light italic'),
     local('Roboto-Lightitalic'),
-    url(css/fonts/roboto-latin-300italic.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-300italic.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-300italic.woff2) format('woff2'), 
+    url(fonts/roboto-latin-300italic.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-400normal - latin */
@@ -88,8 +89,8 @@ body {
   src:
     local('Roboto Regular '),
     local('Roboto-Regular'),
-    url(css/fonts/roboto-latin-400.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-400.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-400.woff2) format('woff2'), 
+    url(fonts/roboto-latin-400.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-400italic - latin */
@@ -101,8 +102,8 @@ body {
   src:
     local('Roboto Regular italic'),
     local('Roboto-Regularitalic'),
-    url(css/fonts/roboto-latin-400italic.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-400italic.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-400italic.woff2) format('woff2'), 
+    url(fonts/roboto-latin-400italic.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-500normal - latin */
@@ -114,8 +115,8 @@ body {
   src:
     local('Roboto Medium '),
     local('Roboto-Medium'),
-    url(css/fonts/roboto-latin-500.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-500.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-500.woff2) format('woff2'), 
+    url(fonts/roboto-latin-500.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-500italic - latin */
@@ -127,8 +128,8 @@ body {
   src:
     local('Roboto Medium italic'),
     local('Roboto-Mediumitalic'),
-    url(css/fonts/roboto-latin-500italic.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-500italic.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-500italic.woff2) format('woff2'), 
+    url(fonts/roboto-latin-500italic.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-700normal - latin */
@@ -140,8 +141,8 @@ body {
   src:
     local('Roboto Bold '),
     local('Roboto-Bold'),
-    url(css/fonts/roboto-latin-700.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-700.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-700.woff2) format('woff2'), 
+    url(fonts/roboto-latin-700.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-700italic - latin */
@@ -153,8 +154,8 @@ body {
   src:
     local('Roboto Bold italic'),
     local('Roboto-Bolditalic'),
-    url(css/fonts/roboto-latin-700italic.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-700italic.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-700italic.woff2) format('woff2'), 
+    url(fonts/roboto-latin-700italic.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-900normal - latin */
@@ -166,8 +167,8 @@ body {
   src:
     local('Roboto Black '),
     local('Roboto-Black'),
-    url(css/fonts/roboto-latin-900.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-900.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-900.woff2) format('woff2'), 
+    url(fonts/roboto-latin-900.woff) format('woff'); /* Modern Browsers */
 }
 
 /* roboto-900italic - latin */
@@ -179,8 +180,8 @@ body {
   src:
     local('Roboto Black italic'),
     local('Roboto-Blackitalic'),
-    url(css/fonts/roboto-latin-900italic.woff2) format('woff2'), 
-    url(css/fonts/roboto-latin-900italic.woff) format('woff'); /* Modern Browsers */
+    url(fonts/roboto-latin-900italic.woff2) format('woff2'), 
+    url(fonts/roboto-latin-900italic.woff) format('woff'); /* Modern Browsers */
 }
 
 
