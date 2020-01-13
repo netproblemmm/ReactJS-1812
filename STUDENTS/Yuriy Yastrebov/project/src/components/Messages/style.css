@@ -1,0 +1,26 @@
+.chatBlock {
+    width: 500px;
+    background-color: lightsteelblue;
+    border: 1px solid grey;
+}
+.chatTitle {
+    text-align: center;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+}
+.chatBody {
+    padding: 10px;
+    height: 700px;
+}
+.chatSendArea {
+    background-color: lightskyblue;
+    display: flex;
+}
+.chatTextArea {
+    width: 400px;
+    resize: none;
+    border: none;
+}
+.chatSendButton {
+    width: 120px;
+}

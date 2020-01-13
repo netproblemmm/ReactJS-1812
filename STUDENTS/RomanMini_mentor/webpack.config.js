@@ -6,13 +6,16 @@ module.exports = {
 		entry: './static_src/index.js',
 		output: {
 				path: path.resolve(__dirname, 'dist'),
-				filename: 'js/app.js'
+				filename: 'js/main.js'
 		},
 		mode: 'development',
 		devServer: {
 				contentBase: './dist',
 				port: 3000,
-				hot: true
+				hot: true,
+				historyApiFallback: {
+						index: 'index.html'
+				}
 		},
 		module: {
 				rules: [
@@ -56,6 +59,7 @@ module.exports = {
 										}
 								]
 						},
+
 				]
 		},
 		plugins: [
@@ -65,6 +69,6 @@ module.exports = {
 				new HtmlWebpackPlugin({
 						filename: 'index.html',
 						template: 'static_src/index.html'
-				})
+				}),
 		]
 }

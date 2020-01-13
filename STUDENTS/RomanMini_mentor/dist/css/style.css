@@ -1,11 +1,16 @@
 .messageField {
+		display: flex;
+		flex-direction: column;
 		flex-grow: 1;
 		overflow-y: auto;
+		padding: 0 15px;
+}
+.message {
+		color: green;
 }
 
-.message {
-		color: #008000;
-		/*text-align: center;*/
+.message_user {
+		color: orange;
 }
 
 .container {
@@ -13,8 +18,8 @@
 		flex-direction: column;
 		justify-content: space-between;
 		height: 100vh;
+		overflow-x: hidden;
 }
-
 body {
 		/*margin: 0;*/
 		/*padding: 0;*/
