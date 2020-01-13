@@ -51,12 +51,9 @@ class Layout extends Component {
 				this.setState({ [event.target.name]: event.target.value });
 		};
 
-		handleKeyUp = (event) => {
-				// console.log(event.keyCode);
-				event.preventDefault();
+		handleKeyUp = ( event, message ) => {
 				if (event.keyCode === 13) { // Enter
-
-						this.handleSendMessage( this.state.input );
+						this.handleSendMessage( message );
 				}
 		};
 
@@ -74,6 +71,10 @@ class Layout extends Component {
 				this.sendMessage ( this.state.user.userName, message );
 		};
 
+		onSubmit = (e) => { // предотвращаем перезагрузку сстраницы тк у нас form
+				e.preventDefault();
+		};
+
 		render () {
 				const { messages, input, user  } = this.state;
 
@@ -89,7 +90,7 @@ class Layout extends Component {
 														<MessageField
 																user={ user }
 																messages = { messages } />
-														<form style={{display: 'flex'}}>
+														<form style={{display: 'flex'}} onSubmit={this.onSubmit} method="post">
 																<TextField
 																		id="outlined-full-width"
 																		label="Chat message"
@@ -104,7 +105,8 @@ class Layout extends Component {
 																		variant="outlined"
 																		name='input'
 																		onChange={ this.handleChange }
-																		onKeyUp={(event) => this.handleKeyUp(event) }
+																		onKeyUp={( event ) => this.handleKeyUp(event, input) }
+																		autoFocus={true}
 																		value={ this.state.input }
 																/>
 																<Button
