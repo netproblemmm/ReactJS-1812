@@ -1,14 +1,22 @@
 import React, {Component} from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Paper from '@material-ui/core/Paper'
+import Grid from '@material-ui/core/Grid'
 
-export default class Conversations extends Component {
-    constructor (props) {
-        super (props)
+let useStyles = makeStyles (theme => ({
+    paper: {
+        textAlign: 'center'
     }
-    render () {
-        return (
-            <div className={'col-md-3 border-right d-flex align-items-center'}>
-                <span className={'text-center'}>У нас нет бесед сейчас</span>
-            </div>
-        )
-    }
+})) 
+
+let conversations = (props) => {
+    let classes = useStyles ()
+
+    return (
+        <Grid container item xs={3} alignItems={'center'}>
+            <Paper className={classes.paper}>У нас нет бесед сейчас</Paper>
+        </Grid>
+    )
 }
+
+export default  conversations
