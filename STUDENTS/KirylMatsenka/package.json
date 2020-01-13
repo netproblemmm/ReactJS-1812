@@ -27,6 +27,8 @@
     "webpack-dev-server": "^3.10.1"
   },
   "dependencies": {
+    "@material-ui/core": "^4.8.2",
+    "@material-ui/icons": "^4.5.1",
     "bootstrap": "^4.4.1",
     "jquery": "^3.4.1",
     "popper.js": "^1.16.0",
