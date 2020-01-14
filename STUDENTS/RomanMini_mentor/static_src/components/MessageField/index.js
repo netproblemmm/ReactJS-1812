@@ -13,10 +13,9 @@ export default class MessageField extends Component {
 
 		render () {
 				const { messages, user } = this.props;
-				console.log(user.userName);
 
-				let messageElements = messages.map(message => <Message
-						key={(new Date().getTime()) * Math.random()}
+				let messageElements = messages.map(( message, index ) => <Message
+						key= { index }  //{(new Date().getTime()) * Math.random()}
 						sender={ message.sender }
 						text={ message.text }
 						align={ user.userName == message.sender ? 'flex-end' : 'flex-start' }

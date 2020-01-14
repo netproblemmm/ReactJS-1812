@@ -3,48 +3,56 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: path.resolve (__dirname, 'src', 'index.js'),
+  entry: path.resolve (__dirname, 'src', 'index.jsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js'
+    filename: path.join('js', 'bundle.js')
+  },
+  mode: 'development',
+  devServer: {
+    contentBase: './dist',
+    port: 8080,
+    hot: true
   },
   module: {
       rules: [
-          {
-          test: /\.css/i,
-          use: [
-            {
-              loader: MiniCssExtractPlugin.loader,
-              options: {
-                // you can specify a publicPath here
-                // by default it uses publicPath in webpackOptions.output
-                publicPath: '../',
-                hmr: process.env.NODE_ENV === 'development',
-              },
-            },
-            'css-loader',
-          ],
-      },
-      {
-          test: /\.js$/,
+        {
+          test: /\.(js|jsx)$/,
           exclude: /node_modules/,
-          use: {
-              loader: 'babel-loader' 
-          }
-      }
+          loader: 'babel-loader',
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: [
+              [
+                "@babel/plugin-proposal-class-properties",
+                {
+                  "loose": true
+                }
+              ]
+            ]
+          },
+        },
+        {
+        test: /\.css$/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+            },
+          },
+          'css-loader',
+        ],
+      },
     ]
   },
   plugins: [
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // all options are optional
-      filename: '[name].css',
-      chunkFilename: '[id].css',
-      ignoreOrder: false, // Enable to remove warnings about conflicting order
+      filename: path.join('css', 'style.css'),
     }),
     new HtmlWebpackPlugin({
         filename: 'index.html',
-        template: path.resolve(__dirname, 'src', 'index.html')
+        template: path.resolve('src', 'index.html')
     })
-  ],
-};
+  ]
+}
