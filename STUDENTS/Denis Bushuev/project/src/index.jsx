@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap';
+import MessageField from './components/MessageField/MessageField.jsx';
 import './style/style.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Messages from './components/MessageField/MessageField.jsx';
-
-let user = 'User';
-
-ReactDOM.render (
-   <Messages user={ user }/>,
-   document.getElementById('root'),
-)
+ReactDOM.render(
+    <MuiThemeProvider>
+        <MessageField />
+    </MuiThemeProvider>,
+    document.getElementById('root'),
+);
