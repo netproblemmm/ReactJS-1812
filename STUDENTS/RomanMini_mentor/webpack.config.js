@@ -6,13 +6,16 @@ module.exports = {
 		entry: './static_src/index.js',
 		output: {
 				path: path.resolve(__dirname, 'dist'),
-				filename: 'js/app.js'
+				filename: 'js/main.js'
 		},
 		mode: 'development',
 		devServer: {
 				contentBase: './dist',
 				port: 3000,
-				hot: false
+				hot: true,
+				historyApiFallback: {
+						index: 'index.html'
+				}
 		},
 		module: {
 				rules: [
@@ -51,11 +54,12 @@ module.exports = {
 												loader: 'file-loader',
 												options: {
 														name: '[name].[ext]',
-														outputPath: 'css/fonts/'
+														outputPath: 'fonts/'
 												}
 										}
 								]
 						},
+
 				]
 		},
 		plugins: [
@@ -65,6 +69,6 @@ module.exports = {
 				new HtmlWebpackPlugin({
 						filename: 'index.html',
 						template: 'static_src/index.html'
-				})
+				}),
 		]
 }

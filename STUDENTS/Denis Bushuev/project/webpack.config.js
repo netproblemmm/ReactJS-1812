@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: './src/index.jsx',
@@ -18,9 +19,17 @@ module.exports = {
             {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader'
-                },
+                loader: 'babel-loader',
+                options: {
+                    plugins: [
+                        [
+                            "@babel/plugin-proposal-class-properties",
+                            {
+                                "loose": true
+                            }
+                        ]
+                    ]
+                }
             },
             {
                 test: /\.css$/i,
@@ -41,5 +50,9 @@ module.exports = {
             chunkFilename: '[id].css',
             ignoreOrder: false
         }),
+        new OptimizeCssAssetsWebpackPlugin({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: require('cssnano')
+        })
     ],
 }
