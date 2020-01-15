@@ -1,16 +1,22 @@
 import './style.css'
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
+import {TextField, FloatingActionButton} from 'material-ui'
+import SendIcon from 'material-ui/svg-icons/content/send'
 import Message from '../Message/Message.jsx'
+
+let usrName = 'Human'
+let botName = 'Mr.Robo'
 
 export default class Messages extends Component {
     constructor (props) {
         super (props)
         this.state = {
             messages: [
-                {body: 'Hello', author: null},
-                {body: 'What is up?', author: null}
-            ]
+                {body: 'Hello', author: usrName},
+                {body: 'What is up?', author: usrName}
+            ],
+            chatTextArea: ''
         }
     }
 
@@ -20,7 +26,7 @@ export default class Messages extends Component {
             setTimeout (() => {
                 this.setState (
                     {
-                       messages: [...this.state.messages, {body: 'Ваш звонок очень важен для нас', author: 'mr. Robo'}]  
+                       messages: [...this.state.messages, {body: 'Ваш звонок очень важен для нас', author: botName}]  
                     }
                 )
             }, 1000)
@@ -29,8 +35,18 @@ export default class Messages extends Component {
 
     sendMessage = () => {
         this.setState ({
-            messages: [...this.state.messages, {body: 'Нормально'}]
+            messages: [...this.state.messages, {body: this.state.chatTextArea, author: usrName}],
+            chatTextArea: ''
         })
+    }
+
+    keyboardHandler = (e) => {
+        if (e.keyCode !== 13) {
+            this.setState({chatTextArea: e.target.value})
+        } else {
+            this.sendMessage ()
+        }
+        
     }
 
     render () {
@@ -38,6 +54,7 @@ export default class Messages extends Component {
         let {messages} = this.state
         let MessageArr = messages.map(message => <Message msg={{
             usrName: message.author ? message.author : user,
+            senderType: message.author === botName ? 'message-left': 'message-right',
             msgBody: message.body
         }}/>)
         return (
@@ -49,8 +66,17 @@ export default class Messages extends Component {
                     {MessageArr}
                 </div>
                 <div className="chatSendArea">
-                    <textarea className="chatTextArea"></textarea>
-                    <button className="chatSendButton" onClick = {this.sendMessage}>Send</button>
+                    <TextField
+                    name="chatTextArea"
+                    hintText="Enter your message"
+                    value={this.state.chatTextArea}
+                    onChange={this.keyboardHandler}
+                    onKeyUp={this.keyboardHandler}
+                    />
+                    {/* <textarea className="chatTextArea"></textarea> */}
+                    <FloatingActionButton className="chatSendButton" onClick = {this.sendMessage}>
+                        <SendIcon />
+                    </FloatingActionButton>
                 </div>
             </div>
         )
