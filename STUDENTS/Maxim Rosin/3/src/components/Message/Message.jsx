@@ -12,12 +12,21 @@ import ReactDOM from 'react-dom';
 let msg = (props) => {
     let senderName = props.msg.usrName
     let text = props.msg.msgBody
+    if (senderName === 'You') {
     return (
-        <div className="d-flex flex-column border-bottom border-top rounded p-5 mw-20">
+            <div class="d-flex flex-column border rounded w-50 h-auto mb-2 pl-2 bg-warning align-self-end">
+            <strong>{ senderName }</strong>
+            <p>{ text }</p>
+        </div>      
+    )
+    } else if (senderName === 'mr. Robo') {
+        return (
+        <div class="d-flex flex-column border rounded w-50 h-auto mb-2 pl-2">
             <strong>{ senderName }</strong>
             <p>{ text }</p>
         </div>
-    )
+        )
+    }
 }
 
 export default msg

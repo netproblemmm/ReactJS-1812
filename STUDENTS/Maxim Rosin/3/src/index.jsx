@@ -1,16 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap'
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import Messages from './components/Messages/Messages.jsx'
 import Child from './components/testcomp/testcomp.jsx'
 
-let user = 'It'
+
+let user = 'You'
 
 ReactDOM.render (
-  <Messages user={ user }/>,
-  document.getElementById('root'),
+  <MuiThemeProvider>
+    <h2 class="text-center">WhatsApp</h2>
+    <Messages user={ user }/>
+  </MuiThemeProvider>
+  , document.getElementById('root'),
 )
 
 // ReactDOM.render (
