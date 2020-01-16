@@ -20,13 +20,18 @@ export default class Messages extends Component {
         }
     }
 
+    robotAnswer () {
+        let robotAnswersArr = ['Можете повторить?', 'Не расслышал', 'Ага, хорошая погода', 'Думаю, что это так', 'Давай поболтаем']
+        return (robotAnswersArr[Math.floor(Math.random() * robotAnswersArr.length)])
+    }
+
     componentDidUpdate () {
         let msgs = this.state.messages
         if (msgs.length % 2 === 1) {
             setTimeout (() => {
                 this.setState (
                     {
-                       messages: [...this.state.messages, {body: 'Ваш звонок очень важен для нас', author: botName}]  
+                       messages: [...this.state.messages, {body: this.robotAnswer(), author: botName}]  
                     }
                 )
             }, 1000)
@@ -67,15 +72,15 @@ export default class Messages extends Component {
                 </div>
                 <div className="chatSendArea">
                     <TextField
-                    name="chatTextArea"
+                    classname="chatTextArea"
                     hintText="Enter your message"
                     value={this.state.chatTextArea}
                     onChange={this.keyboardHandler}
                     onKeyUp={this.keyboardHandler}
+                    fullWidth
                     />
-                    {/* <textarea className="chatTextArea"></textarea> */}
                     <FloatingActionButton className="chatSendButton" onClick = {this.sendMessage}>
-                        <SendIcon />
+                        <SendIcon className="sendIcon"/>
                     </FloatingActionButton>
                 </div>
             </div>

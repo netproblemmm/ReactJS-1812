@@ -1,15 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import 'bootstrap'
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import './style.css'
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
-import Messages from './components/Messages/Messages.jsx'
-import Child from './components/testcomp/testcomp.jsx'
+import Layout from './components/Layout/Layout.jsx'
 
 ReactDOM.render (
     <MuiThemeProvider>
-        <Messages />
-    </MuiThemeProvider>,
-    document.getElementById('root')
+        <Layout />
+    </MuiThemeProvider>
+    , document.getElementById('root'),
 )

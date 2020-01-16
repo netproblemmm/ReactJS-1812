@@ -22,8 +22,7 @@
     border: none;
 }
 .chatSendButton {
-    padding-right: 10px;
-    display: flex;
+    /* padding-left: 200px; */
 }
 .message-left {
     text-align: left;
@@ -32,4 +31,7 @@
 .message-right {
     text-align: right;
     color: darkolivegreen;
+}
+.sendIcon {
+    /* border: 1px solid grey; */
 }
