@@ -1,0 +1,31 @@
+.msg{
+    overflow-y: scroll;
+    max-height: 550px; 
+}
+.type_msg {
+    width: 100%; 
+    border-top: 1px solid #c4c4c4;
+    position: absolute;
+    bottom: 0px;
+}
+.input_msg input {
+    background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
+    border: medium none;
+    color: #4c4c4c;
+    font-size: 15px;
+    min-height: 50px;
+    width: 100%;
+}
+.msg_btn {
+  background: #05728f none repeat scroll 0 0;
+  border: medium none;
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  height: 33px;
+  position: absolute;
+  right: 0;
+  top: 11px;
+  width: 33px;
+}
