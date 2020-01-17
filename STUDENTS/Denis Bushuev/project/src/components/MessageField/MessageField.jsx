@@ -1,34 +1,34 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import Message from '../Message/Message.jsx';
 import './style.css';
 
 export default class MessageField extends React.Component {
-    constructor(props) {
-        super(props);
-        // Создание ref в поле 'textInput'
-        this.textInput = React.createRef();
-    }
-
-    state = {
-        messages: [
-            { text: "Привет!", sender: 'bot' },
-            { text: "Как дела?", sender: 'bot' }
-        ],
-        input: '',
+    static propTypes = {
+        chatId: PropTypes.number.isRequired,
     };
 
-    // Фокус на input
-    componentDidMount() {
-        this.textInput.current.focus();
-    }
+    state = {
+        chats: {
+            1: {title: 'Чат 1', messageList: [1]},
+            2: {title: 'Чат 2', messageList: [2]},
+            3: {title: 'Чат 3', messageLis: []},
+        },
+        messages: {
+            1: { text: "Привет!", sender: 'bot' },
+            2: { text: "Привет!", sender: 'bot' }
+        },
+        input: ''
+    };
 
     componentDidUpdate(prevProps, prevState) {
-        if(prevState.messages.length < this.state.messages.length && this.state.messages[this.state.messages.length - 1].sender === 'user') {
-            setTimeout(() => this.setState(
-                { messages: [...this.state.messages, { text: this.randomBot(), sender: 'bot' }] }
-            ), 1000);
+        const { messages } = this.state;
+        if(Object.keys(prevState.messages).length < Object.keys(messages).length && Object.values(messages)[Object.values(messages).length - 1].sender === 'user') {
+            setTimeout(() =>
+                this.handleSendMessage('Привет!', 'bot'),
+            1000);
         }
     };
 
@@ -41,49 +41,61 @@ export default class MessageField extends React.Component {
         }
     }
 
-    handleClick = (message) => {
-        this.sendMessage(message);
+    handleSendMessage = (message, sender) => {
+        const { messages, chats, input } = this.state;
+        const { chatId } = this.props;
+
+        if(input.length > 0 || sender === 'bot') {
+            const messageId = Object.keys(messages).length + 1;
+            this.setState({
+                messages: {...messages, [messageId]: {text: message, sender: sender}},
+                chats: {...chats, [chatId]: {...chats[chatId], messageList: [...chats[chatId]['messageList'], messageId]}},
+            })
+        }
+        if(sender === 'user') {
+            this.setState({ input: '' })
+        }
     };
 
     handleChange = (event) => {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    handleKeyUp = (event, message) => {
-        if(event.keyCode === 13) { // Равен Enter
-            this.sendMessage(message);
+    handleKeyUp = (event) => {
+        if(event.keyCode === 13) {
+            this.handleSendMessage(this.state.input, 'user')
         }
     };
 
-    sendMessage = (message) => {
-        this.setState({ messages: [ ...this.state.messages, { text: message, sender: 'user' } ],
-        input: '',
-    })
-    };
-
     render() {
-        const messageElements = this.state.messages.map((message, index) => (
-            <Message key={ index } text={ message.text } sender={ message.sender }/>
+        const { messages, chats } = this.state;
+        const { chatId } = this.props;
+        const messageElements = chats[chatId].messageList.map((messageId, index) => (
+            <Message 
+                key={ index }
+                text={ messages[messageId].text }
+                sender={ messages[messageId].sender }
+            />
         ));
 
-        return <div className="layout">
+        return <div className="message-head">
             <h1>MyChat</h1>
-            <div className="message-field">
+            <div key="messageElements" className="message-field">
                 { messageElements }
             </div>
-            <div className="allSend">
+            <div key="textInput" className="allSend">
                 <TextField
-                    ref={ this.textInput }
                     name="input"
                     fullWidth={ true } 
                     className="inputSend"
                     hintText="Введите сообщение"
                     onChange={ this.handleChange }
                     value={ this.state.input }
-                    onKeyUp={ (event) => this.handleKeyUp(event, this.state.input) } />
+                    onKeyUp={ this.handleKeyUp } 
+                />
                 <FloatingActionButton 
                     className="btnSend"
-                    onClick={ () => this.handleClick(this.state.input) }>
+                    onClick={ () => this.handleSendMessage(this.state.input, 'user') }>
                         <SendIcon />
                     </FloatingActionButton>
             </div>
