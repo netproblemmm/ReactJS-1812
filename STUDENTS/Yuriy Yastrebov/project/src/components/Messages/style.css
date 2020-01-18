@@ -17,10 +17,21 @@
     display: flex;
 }
 .chatTextArea {
-    width: 400px;
+    width: 500px;
     resize: none;
     border: none;
 }
 .chatSendButton {
-    width: 120px;
+    /* padding-left: 200px; */
+}
+.message-left {
+    text-align: left;
+    color: darkslategray;
+}
+.message-right {
+    text-align: right;
+    color: darkolivegreen;
+}
+.sendIcon {
+    /* border: 1px solid grey; */
 }
