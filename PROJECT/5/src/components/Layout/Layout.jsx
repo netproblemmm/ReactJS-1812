@@ -7,7 +7,11 @@ import ChatList from '../ChatList/ChatList.jsx'
 
 import './style.css';
 
-export default class Layout extends React.Component {
+//store
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+class Layout extends React.Component {
     static propTypes = {
         chatId: PropTypes.number,
     }
@@ -32,3 +36,7 @@ export default class Layout extends React.Component {
         )
     }
 }
+
+let mapStateToProps = ({}) => ({})
+//  let mapDispatchToProps = dispatch => bindActionCreators ({  }, dispatch)
+export default connect (mapStateToProps) (Layout)

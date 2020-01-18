@@ -2,9 +2,11 @@
 
 import React, {Component} from 'react'
 import ReactDOM from 'react-dom'
-import { TextField, FloatingActionButton } from 'material-ui'
-import SendIcon from 'material-ui/svg-icons/content/send'
+
 import Message from '../Message/Message.jsx'
+
+import { TextField, FloatingActionButton } from 'material-ui';
+import SendIcon from 'material-ui/svg-icons/content/send';
 
 export default class Messages extends Component {
     constructor (props) {
@@ -15,12 +17,12 @@ export default class Messages extends Component {
                 {body: 'Hello', author: null}, 
                 {body: 'What is up?', author: null}
             ],
-            inputText: '',
             chats: {
-                1: { title: 'Чат 1', messagesList: [] },
-                2: { title: 'Чат 2', messagesList: [] },
-                3: { title: 'Чат 3', messagesList: [] }
-            }
+                1: {title: 'Чат 1', messageList: [1]},
+                2: {title: 'Чат 2', messageList: [2]},
+                3: {title: 'Чат 3', messageList: []},
+            },
+            input: ''
         }
     }
 
@@ -37,20 +39,23 @@ export default class Messages extends Component {
         }
     }
 
+    textInput = React.createRef();
+
     sendMessage = () => {
         this.setState ({
-            messages: [...this.state.messages, {body: this.state.inputText}],
-            inputText: ''
+            messages: [...this.state.messages, {body: this.state.input}],
+            input: ''
         })
     }
 
-    keyboardHandler = (e) => {
-        if (e.keyCode !== 13) {
-            this.setState ({inputText: e.target.value})
-        } else {
-            this.sendMessage ()
+    handleInput = (e) => {
+        this.setState({ input: e.target.value })
+    }
+
+    handleKeyUp = (e) => {
+        if (e.keyCode === 13) {  // Enter
+            this.sendMessage()
         }
-            
     }
 
     render () {
@@ -67,17 +72,20 @@ export default class Messages extends Component {
                 <div>
                     { MessageArr }
                 </div>
-                <div>
-                    <TextField 
-                    name="input"
-                    hintText="Enter your message"
-                    value={ this.state.inputText }
-                    onChange={ this.keyboardHandler }
-                    onKeyUp={ this.keyboardHandler }/>
-                    <FloatingActionButton onClick = { this.sendMessage }>
-                        <SendIcon />
-                    </FloatingActionButton>
+                <div style={ { width: '100%', display: 'flex' }}>
+                   <TextField 
+                        name = "input"
+                        ref = {this.textInput}
+                        fullWidth = {true}
+                        style={ { fontSize: '22px' } }
+                        hintText = "Enter message"
+                        onChange = {this.handleInput}
+                        value={this.state.input}
+                        onKeyUp={ this.handleKeyUp }
+                    /> 
                 </div>
+                
+                <button onClick = { this.sendMessage }>Send</button>
             </div>
         )
     }
