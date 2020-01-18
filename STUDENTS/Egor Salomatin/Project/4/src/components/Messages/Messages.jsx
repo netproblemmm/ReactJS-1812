@@ -5,13 +5,22 @@ import Fab from '@material-ui/core/Fab'
 import Message from '../Message/Message.jsx'
 import SendIcon from '@material-ui/icons/Send'
 import style from './style.css'
+import { styled } from '@material-ui/core/styles'
+
+const MyField = styled(TextField)({
+      width: '500px',
+      marginRight: '20px'
+  });
+
 
 export default class Messages extends Component {
     constructor (props) {
         super (props)
 
+        let msg = new Map();
+
         this.state = {
-            messages: [],
+            messages: msg,
             inputText: ''
         }
         this.answArr = ['Как дела?', 'Добрый день. Чем могу помочь?', 'Рад помочь!', 'Хорошего дня!', 'Что делаешь?']
@@ -19,20 +28,35 @@ export default class Messages extends Component {
 
     RobotAnswer() {
         let rndIndex = Math.floor((Math.random()*5))
-        console.log(rndIndex)
         let robotAnswer = this.answArr[rndIndex]
-        setTimeout(() => {this.setState( {
-            messages: [...this.state.messages, {body: robotAnswer, author: 'Robot'}],
-            inputText: this.state.inputText
-        })}, 1000)
+        setTimeout(() => {
+            let msgId = Date.now()
+            this.setState(function(state, props) {
+                state.messages.set(msgId, {
+                    author: 'Robot',
+                    text: robotAnswer
+                })
+                return (state)
+            })
+            this.props.addMessage(msgId);
+        }, 1000)
+        console.log(this.state)
     }
 
     sendMessage = () => {
-        this.setState ({
-            messages: [...this.state.messages, {body: this.state.inputText}],
-            inputText: ''
-        })
+        let msgId = Date.now()
+        this.setState(function(state, prev) {
+            state.messages.set(msgId, {
+                author: this.props.user,
+                text: state.inputText
+            })
+            state.inputText = ''
+            return(state)
+        }
+        )
+        this.props.addMessage(msgId);
         this.RobotAnswer()
+        console.log(this.state)
     }
 
     keyboardHandler = (e) => {
@@ -45,21 +69,23 @@ export default class Messages extends Component {
     }
 
     render () {
-        let { user } = this.props
-        let { messages } = this.state
+        let { messagesIds } = this.props
+        
+        let MessageArr = []
 
-        let MessageArr = messages.map (message => <Message msg={ {
-            usrName: message.author ? message.author : user, 
-            msgBody: message.body
-        } }/>)
+        messagesIds.forEach(element => {
+            let msg = this.state.messages.get(element)
+            MessageArr.push(<Message msg = {msg}/>)
+        });
 
         return (
             <div className="msg-wrapper">
+                <h2>WhatsAcct</h2>
                 <div className="msg-field">
                     { MessageArr }
                 </div>
-                <div>
-                    <TextField 
+                <div className="msg-controls">
+                    <MyField 
                     name="input"
                     label="Enter your message"
                     value={ this.state.inputText }
