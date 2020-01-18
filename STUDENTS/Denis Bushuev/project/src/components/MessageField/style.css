@@ -1,23 +1,34 @@
-.text-chat {
-    width: 500px;
+.message-field {
+    display: flex;
+    flex-direction: column;
+    background-color: #e2e2e2;
+    height: 50%;
+    width: 100%;
+    padding: 20px;
+    overflow-y: scroll;
+    border-radius: 3px;
     border: 1px solid black;
-    background-color: white;
-    padding: 5px;
-    border-radius: 10px;
 }
 
-button {
-    width: 500px;
-    margin: 5px 0 0 0;
-    outline: none;
-    border-radius: 10px;
-    background-color: white;
+.message-head {
+    height: 100%;
+    width: 50%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 
-button:hover {
-    background-color: #5181B8;
+.inputSend {
+    font-size: 22px;
 }
 
-button:active {
-    background-color: white;
+.btnSend {
+    font-size: 22px;
+}
+
+.allSend {
+    display: flex;
+    width: 100%;
 }
