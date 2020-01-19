@@ -21,7 +21,8 @@ export default class Messages extends Component {
             valid: true,
             scrollElement: null,
             timeOuts: null,
-            rob: new Robot ()
+            rob: new Robot (),
+            chats: this.props.chats,
         }
     }
 
@@ -29,10 +30,9 @@ export default class Messages extends Component {
         // Привет от робота
         let hiFromRobot = setTimeout (() => {
             this.setState ({
-                messages: [...this.state.messages, this.state.rob.hello ]
+                chats: this.setMessage (this.state.rob.hello)
             })
         }, 3000)
-
         // Это поле диалога
         this.setState ({
             scrollElement: document.querySelector ('#messages'),
@@ -41,14 +41,15 @@ export default class Messages extends Component {
     }
 
     componentDidUpdate () {
-
+        let messages = this.state.chats.find (message => message.id === +this.props.chat).messages
         let answerMessage = window.setTimeout (() => {
+            let answer = messages.length > 0 ? this.state.rob.answer (this.getCurrentChat ().messages) : this.state.rob.hello
             this.setState ({
-                messages: [...this.state.messages, this.state.rob.answer (this.state.messages)]
+                chats: this.setMessage (answer)
             })
         }, 3000)
 
-        if (this.state.messages[this.state.messages.length - 1] && this.state.messages[this.state.messages.length - 1].user == 'Rob') {
+        if (messages[messages.length - 1] && messages[messages.length - 1].user == 'Rob') {
             while (answerMessage > this.state.timeOuts) {
                 window.clearTimeout (answerMessage)
                 answerMessage-- 
@@ -56,10 +57,21 @@ export default class Messages extends Component {
         } else {
             answerMessage
         }
-            
+        // Scroll down automatically    
         if (this.getLastMessageInField ()) {
             this.getLastMessageInField ().scrollIntoView ({ behavior: 'smooth', block: 'center' })
         }
+    }
+
+    setMessage (message) {
+        let chats = this.state.chats
+        let chat = chats.find (chat => chat.id === +this.props.chat)
+        chat.messages = [...chat.messages, message]
+        return chats
+    }
+
+    getCurrentChat () {
+        return this.state.chats.find (chat => chat.id === +this.props.chat)
     }
 
     // Достаем последний элемент в диалоге
@@ -81,29 +93,31 @@ export default class Messages extends Component {
             this.setState ({ valid: false })
             return 
         } 
+
+        let chats = this.state.chats
+        let chat = chats.find (chat => chat.id === +this.props.chat)
+        chat.messages = [...chat.messages, { body: this.state.messageInput, user: this.props.user.name }]
         this.setState ({
-            messages: [...this.state.messages, { body: this.state.messageInput, user: this.props.user.name }],
+            chats: chats,
             messageInput: '',
             valid: true
         })
     }
 
     render () {
-        let messagesArr = this.state.messages  
+        let messagesArr = this.state.chats.find (chat => chat.id === +this.props.chat).messages  
 
             let messages = messagesArr.map ((message, i) => 
             <Box
             key={ i } 
             display="flex" 
-            justifyContent={message.user == this.props.user.name ? "flex-end" : "flex-start"}
+            justifyContent={ message.user == this.props.user.name ? "flex-end" : "flex-start" }
             m={2}
             >
-                <Message msg={message} user={this.props.user}/>
+                <Message msg={ message } user={ this.props.user }/>
             </Box>
             )
         
-        
-
         return (
             <Grid container item xs={9} alignContent={'flex-end'}>
                 <Box 

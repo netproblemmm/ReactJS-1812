@@ -1,0 +1,20 @@
+/* @import "@material/list/mdc-list"; */
+
+.chat-list-full {
+    width: 400px;
+    background-color: rgb(217, 234, 240);
+}
+
+.head-chat-list {
+    background-color:  rgb(172, 222, 240);
+    padding: 14px 5px;
+    display: flex;
+}
+
+.cursor {
+    cursor: pointer;
+}
+
+.cursor:hover {
+    background-color: darkgray;
+}

@@ -1,13 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap';
+import { BrowserRouter } from 'react-router-dom';
+import Router from './components/router.jsx';
 import './style/style.css';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import Messages from './components/MessageField/MessageField.jsx';
-
-let user = 'User';
-
-ReactDOM.render (
-   <Messages user={ user }/>,
-   document.getElementById('root'),
-)
+ReactDOM.render(
+    <BrowserRouter>
+        <MuiThemeProvider>
+            <Router />
+        </MuiThemeProvider>
+    </BrowserRouter>,
+    document.getElementById('root'),
+);
