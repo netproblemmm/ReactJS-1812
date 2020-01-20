@@ -8,6 +8,7 @@ export default class BlockMain extends Component {
     constructor (props) {
         super (props)
     }
+
     render () {
         return (
             <Grid 
@@ -16,8 +17,8 @@ export default class BlockMain extends Component {
             direction={'row'} 
             style={{height: 'calc(100vh - 50px)'}}
             >
-                <Conversations />
-                <Messages user={ this.props.user } />
+                <Conversations {...this.props} addChat = { () => { this.props.addChat () } } />
+                <Messages {...this.props} />
             </Grid>
         )
     }

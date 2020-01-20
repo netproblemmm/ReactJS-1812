@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+#root {
+    background-image: url(https://img3.akspic.com/image/99337-caribbean-inn-horizon-body_of_water-sea-2560x1440.jpg);
+    background-size: auto;
+    margin: auto;
+    width: 800px;
+    height: 500px;
+    filter: blur(0.5);
+    display: flex;
+}
+
+h1 {
+    font-family: 'Roboto', sans-serif;
+    padding: 15px 0;
+    background-color: grey;
+    width: 400px;
+    text-align: center;
+    margin: auto;
+}
+
