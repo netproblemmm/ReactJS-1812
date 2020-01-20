@@ -26,6 +26,15 @@ export default class Messages extends Component {
         this.textInput.current.focus()
     }
 
+    handleSendMessage = (message, sender) => {
+        if (message.length > 0 || sender === this.props.usrName) {
+            this.props.sendMessage(message, sender)
+        }
+        if (sender === this.props.usrName) {
+            this.setState({input: ''})
+        }
+    }
+
     handleChange = (event) => {
         this.setState({[event.target.name]: event.target.value})
     }
@@ -33,15 +42,6 @@ export default class Messages extends Component {
     handleKeyUp = (event, message) => {
         if (event.keyCode === 13) {
             this.handleSendMessage(message, this.props.usrName)
-        }
-    }
-
-    handleSendMessage = (message, sender) => {
-        if (message.length > 0 || sender === this.props.usrName) {
-            this.props.sendMessage(message, sender)
-        }
-        if (sender === this.props.usrName) {
-            this.setState({input: ''})
         }
     }
 

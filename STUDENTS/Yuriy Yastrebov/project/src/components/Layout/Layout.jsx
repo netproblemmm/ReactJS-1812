@@ -19,14 +19,14 @@ export default class Layout extends Component {
     }
     state = {
         chats: {
-            1: {title: 'Чат 1', messagesList: [1]},
-            2: {title: 'Чат 2', messagesList: [2]},
-            3: {title: 'Чат 3', messagesList: []}
+            1: {title: 'Чат 1', messageList: [1]},
+            2: {title: 'Чат 2', messageList: [2]},
+            3: {title: 'Чат 3', messageList: []}
         },
-        messages: [
-            {text: 'Hello', sender: botName},
-            {text: 'What is up?', sender: botName}
-        ],
+        messages: {
+            1: {text: 'Hello', sender: botName},
+            2: {text: 'What is up?', sender: botName}
+        },
         //chatTextArea: '',
     }
 
