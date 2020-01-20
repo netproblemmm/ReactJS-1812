@@ -1,67 +1,60 @@
-import './style.css'
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
+//import ReactDOM from 'react-dom'
 import {TextField, FloatingActionButton} from 'material-ui'
 import SendIcon from 'material-ui/svg-icons/content/send'
 import Message from '../Message/Message.jsx'
-
-let usrName = 'Human'
-let botName = 'Mr.Robo'
+import PropTypes from 'prop-types'
+import './style.css'
 
 export default class Messages extends Component {
     constructor (props) {
         super (props)
-        this.state = {
-            messages: [
-                {body: 'Hello', author: usrName},
-                {body: 'What is up?', author: usrName}
-            ],
-            chatTextArea: ''
+        this.textInput = React.createRef() // реализация фокуса на chatTextArea
+    }
+    static propTypes = {
+        chatId: PropTypes.number.isRequired,
+        messages: PropTypes.object.isRequired,
+        chats: PropTypes.object.isRequired,
+        sendMessage: PropTypes.func.isRequired,
+    }
+
+    state = {
+        input: ''
+    }
+
+    componentDidMount () {
+        this.textInput.current.focus()
+    }
+
+    handleChange = (event) => {
+        this.setState({[event.target.name]: event.target.value})
+    }
+
+    handleKeyUp = (event, message) => {
+        if (event.keyCode === 13) {
+            this.handleSendMessage(message, this.props.usrName)
         }
     }
 
-    robotAnswer () {
-        let robotAnswersArr = ['Можете повторить?', 'Не расслышал', 'Ага, хорошая погода', 'Думаю, что это так', 'Давай поболтаем']
-        return (robotAnswersArr[Math.floor(Math.random() * robotAnswersArr.length)])
-    }
-
-    componentDidUpdate () {
-        let msgs = this.state.messages
-        if (msgs.length % 2 === 1) {
-            setTimeout (() => {
-                this.setState (
-                    {
-                       messages: [...this.state.messages, {body: this.robotAnswer(), author: botName}]  
-                    }
-                )
-            }, 1000)
+    handleSendMessage = (message, sender) => {
+        if (message.length > 0 || sender === this.props.usrName) {
+            this.props.sendMessage(message, sender)
         }
-    }
-
-    sendMessage = () => {
-        this.setState ({
-            messages: [...this.state.messages, {body: this.state.chatTextArea, author: usrName}],
-            chatTextArea: ''
-        })
-    }
-
-    keyboardHandler = (e) => {
-        if (e.keyCode !== 13) {
-            this.setState({chatTextArea: e.target.value})
-        } else {
-            this.sendMessage ()
+        if (sender === this.props.usrName) {
+            this.setState({input: ''})
         }
-        
     }
 
     render () {
-        let {user} = this.props
-        let {messages} = this.state
-        let MessageArr = messages.map(message => <Message msg={{
-            usrName: message.author ? message.author : user,
-            senderType: message.author === botName ? 'message-left': 'message-right',
-            msgBody: message.body
-        }}/>)
+        let {chatId, chats, messages} = this.props
+        let MessageArr = chats[chatId].messageList.map((messageId) => (
+            <Message
+                key = {messageId}
+                text = {messages[messageId].text}
+                sender = {messages[messageId].sender}
+            />
+            ))
+
         return (
             <div className="chatBlock">
                 <div className="chatTitle">
@@ -69,17 +62,20 @@ export default class Messages extends Component {
                 </div>
                 <div className="chatBody">
                     {MessageArr}
-                </div>
+                </div>,
                 <div className="chatSendArea">
                     <TextField
-                    classname="chatTextArea"
+                    ref={this.textInput}
+                    className="chatTextArea"
                     hintText="Enter your message"
                     value={this.state.chatTextArea}
-                    onChange={this.keyboardHandler}
-                    onKeyUp={this.keyboardHandler}
+                    onChange={this.handleChange}
+                    onKeyUp={(event) => this.handleKeyUp(event, this.state.chatTextArea)}
                     fullWidth
                     />
-                    <FloatingActionButton className="chatSendButton" onClick = {this.sendMessage}>
+                    <FloatingActionButton
+                        className="chatSendButton"
+                        onClick = {() => this.handleSendMessage(this.state.chatTextArea, usrName)}>
                         <SendIcon className="sendIcon"/>
                     </FloatingActionButton>
                 </div>

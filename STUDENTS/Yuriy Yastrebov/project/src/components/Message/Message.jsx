@@ -1,6 +1,6 @@
 import './style.css'
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
+//import ReactDOM from 'react-dom'
 
 let msg = (props) => {
     let senderName = props.msg.usrName
