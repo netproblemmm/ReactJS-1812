@@ -3,19 +3,22 @@ import React, { Component } from 'react'
 import Container from '@material-ui/core/Container'
 import BlockMain from '../BlockMain/BlockMain.jsx'
 import Header from '../Header/Header.jsx'
-
-let user = { id: 1, name: 'Вася' }
+import PropTypes from 'prop-types'
 
 export default class Layout extends Component {
-    constructor (props) {
-        super (props)
+    static propTypes = {
+        chat: PropTypes.number
+    }
+
+    static defaultProps = {
+        chat: 1
     }
 
     render () {
         return (
             <Container maxWidth="lg">
                 <Header />
-                <BlockMain {...this.props} user={ user } addChat = { () => { this.props.addChat () }}  />
+                <BlockMain {...this.props} />
             </Container>
         )
     }

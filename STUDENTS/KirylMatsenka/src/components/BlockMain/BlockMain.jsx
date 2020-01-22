@@ -1,13 +1,9 @@
 import React, {Component} from 'react'
-import Conversations from '../Conversations/Conversations.jsx'
+import ChatList from '../ChatList/ChatList.jsx'
 import Messages from '../Messages/Messages.jsx'
 import Grid from '@material-ui/core/Grid'
 
-
 export default class BlockMain extends Component {
-    constructor (props) {
-        super (props)
-    }
 
     render () {
         return (
@@ -17,7 +13,7 @@ export default class BlockMain extends Component {
             direction={'row'} 
             style={{height: 'calc(100vh - 50px)'}}
             >
-                <Conversations {...this.props} addChat = { () => { this.props.addChat () } } />
+                <ChatList {...this.props} />
                 <Messages {...this.props} />
             </Grid>
         )
