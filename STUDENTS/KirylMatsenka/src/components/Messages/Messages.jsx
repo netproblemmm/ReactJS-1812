@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-
 import Message from '../Message/Message.jsx'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
@@ -10,46 +9,50 @@ import ScrollBottom from './ScrollBottom.jsx'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import Robot from '../Robot/Robot.js'
 
-export default class Messages extends Component {
+import { sendMessage } from '../../actions/message_actions.js'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+class Messages extends Component {
     constructor (props) {
         super (props)
 
         this.state = {
-            messages: [],
             messageInput: '',
-            message: {body: '', user: ''},
             valid: true,
             scrollElement: null,
             timeOuts: null,
             rob: new Robot (),
-            chats: this.props.chats,
         }
     }
 
     componentDidMount () {
         // Привет от робота
-        let hiFromRobot = setTimeout (() => {
+        if (Object.keys (this.props.chats[this.props.chat]).length === 0) {
+            let hiFromRobot = setTimeout (() => {
+                this.props.sendMessage (this.state.rob.hello.body, this.state.rob.hello.user, this.props.chat)
+            }, 3000)
             this.setState ({
-                chats: this.setMessage (this.state.rob.hello)
+                scrollElement: document.querySelector ('#messages'),
+                timeOuts: hiFromRobot,
             })
-        }, 3000)
+        }
+        
         // Это поле диалога
         this.setState ({
             scrollElement: document.querySelector ('#messages'),
-            timeOuts: hiFromRobot,
         })
     }
 
     componentDidUpdate () {
-        let messages = this.state.chats.find (message => message.id === +this.props.chat).messages
+        let messages = this.props.chats[this.props.chat].messages
+
         let answerMessage = window.setTimeout (() => {
-            let answer = messages.length > 0 ? this.state.rob.answer (this.getCurrentChat ().messages) : this.state.rob.hello
-            this.setState ({
-                chats: this.setMessage (answer)
-            })
+            let answer = Object.keys (messages).length > 0 ? this.state.rob.answer (this.props.chats[this.props.chat].messages) : this.state.rob.hello
+            this.props.sendMessage (answer.body, answer.user, this.props.chat)
         }, 3000)
 
-        if (messages[messages.length - 1] && messages[messages.length - 1].user == 'Rob') {
+        if (messages[Object.keys (messages).length] && messages[Object.keys (messages).length].user == 'Rob') {
             while (answerMessage > this.state.timeOuts) {
                 window.clearTimeout (answerMessage)
                 answerMessage-- 
@@ -63,17 +66,6 @@ export default class Messages extends Component {
         }
     }
 
-    setMessage (message) {
-        let chats = this.state.chats
-        let chat = chats.find (chat => chat.id === +this.props.chat)
-        chat.messages = [...chat.messages, message]
-        return chats
-    }
-
-    getCurrentChat () {
-        return this.state.chats.find (chat => chat.id === +this.props.chat)
-    }
-
     // Достаем последний элемент в диалоге
     getLastMessageInField () {
         let fieldElements = this.state.scrollElement.children
@@ -85,7 +77,7 @@ export default class Messages extends Component {
             this.sendMessage ()
             return 
         } 
-            this.setState ({ messageInput: e.target.value })
+        this.setState ({ messageInput: e.target.value })
     }
 
     sendMessage = () => {
@@ -93,40 +85,32 @@ export default class Messages extends Component {
             this.setState ({ valid: false })
             return 
         } 
-
-        let chats = this.state.chats
-        let chat = chats.find (chat => chat.id === +this.props.chat)
-        chat.messages = [...chat.messages, { body: this.state.messageInput, user: this.props.user.name }]
-        this.setState ({
-            chats: chats,
-            messageInput: '',
-            valid: true
-        })
+        this.props.sendMessage (this.state.messageInput, this.props.user.name, this.props.chat)
+        this.setState({ messageInput: '' })
     }
 
     render () {
-        let messagesArr = this.state.chats.find (chat => chat.id === +this.props.chat).messages  
-
-            let messages = messagesArr.map ((message, i) => 
-            <Box
-            key={ i } 
+        let m = this.props.chats[this.props.chat].messages
+        let messages = Object.keys (m).map (id => 
+        <Box
+            key={ id } 
             display="flex" 
-            justifyContent={ message.user == this.props.user.name ? "flex-end" : "flex-start" }
+            justifyContent={ m[id].user == this.props.user.name ? "flex-end" : "flex-start" }
             m={2}
-            >
-                <Message msg={ message } user={ this.props.user }/>
-            </Box>
-            )
-        
+        >
+            <Message msg={ m[id] } user={ this.props.user }/>
+        </Box>
+        )
+    
         return (
             <Grid container item xs={9} alignContent={'flex-end'}>
                 <Box 
-                id="messages" 
-                width={1} 
-                maxHeight={'calc(100vh - 140px)'} 
-                width="95%"
-                overflow="auto" 
-                alignSelf={'flex-end'}
+                    id="messages" 
+                    width={1} 
+                    maxHeight={'calc(100vh - 140px)'} 
+                    width="95%"
+                    overflow="auto" 
+                    alignSelf={'flex-end'}
                 >
                     { messages }
                     <ScrollBottom scrollElement={this.state.scrollElement}>
@@ -139,20 +123,20 @@ export default class Messages extends Component {
                 <Grid container spacing={1} alignItems="flex-end">
                     <Grid item xs={10}>
                         <TextField
-                        id="message-input"
-                        label={`Type message ${this.props.user.name}`}
-                        variant="outlined"
-                        color="primary"
-                        onChange={this.handleFieldChange}
-                        onKeyUp={this.handleFieldChange}
-                        value={this.state.messageInput}
-                        error={!this.state.valid}
-                        helperText={!this.state.valid ? 'You can\'t leave it like that' : ''}
-                        fullWidth                        
+                            id="message-input"
+                            label={`Type message ${this.props.user.name}`}
+                            variant="outlined"
+                            color="primary"
+                            onChange={ this.handleFieldChange }
+                            onKeyUp={ this.handleFieldChange }
+                            value={ this.state.messageInput }
+                            error={ !this.state.valid }
+                            helperText = { !this.state.valid ? 'You can\'t leave it like that' : '' }
+                            fullWidth                        
                         />
                     </Grid>
                     <Grid item xs={1}>
-                        <Fab color="primary" onClick={this.sendMessage}>
+                        <Fab color="primary" onClick={ this.sendMessage }>
                             <SendIcon />
                         </Fab>
                     </Grid>
@@ -161,3 +145,12 @@ export default class Messages extends Component {
         )
     }
 }
+
+let mapStateToProps = ({ chatReducer }) => ({
+    chats: chatReducer.chats,
+    user: chatReducer.user
+})
+
+let mapDispatchToProps = dispatch => bindActionCreators ({ sendMessage }, dispatch)
+
+export default connect (mapStateToProps, mapDispatchToProps) (Messages)
