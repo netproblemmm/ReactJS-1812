@@ -1,10 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './components/app'
+import { createStore } from 'redux';
+import chatReducer from './reducers/chatReducer';
 
-import App from './components/app';
 
+const store =  createStore(chatReducer)
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App store={store}/>, document.getElementById('root'));
 
 
 
