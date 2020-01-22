@@ -14,7 +14,7 @@ module.exports = {
     port: 3000,
     hot: true,
     historyApiFallback: {
-      index: './src/index.html'
+      index: 'index.html'
     }
   },
   module: {
