@@ -4,15 +4,18 @@ import PropTypes from 'prop-types'
 import Messages from '../Messages/Messages.jsx'
 import Header from '../Header/Header.jsx'
 import ChatList from '../ChatList/ChatList.jsx'
-
+import { sendMessage } from "../../actions/message_actions.js";
 
 import './style.css'
 
-let user = 'You'
+//store
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-export default class Layout extends Component {
+class Layout extends Component {
     static propTypes = {
         chatId: PropTypes.number,
+        sendMessage: PropTypes.func.isRequired,
     }
 
     static defaultProps = {
@@ -42,25 +45,15 @@ export default class Layout extends Component {
     }
 
     sendMessage = (message, sender) => {
-        let { messages, chats} = this.state;
-        let { chatId } = this.props;
-
-        let messageId = Object.keys (messages).length + 1
-        
-        this.setState ({
-            messages: {
-                ...messages,
-                [messageId]: {text: message, sender: sender}
-            },
-            chats: {
-                ...chats,
-                [chatId]: {
-                    ...chats[chatId],
-                    messageList: [...chats[chatId]['messageList'], messageId]
-                }
-            }
-        })
-
+        const { messages } = this.state;
+        const { chatId } = this.props;
+ 
+        const messageId = Object.keys(messages).length + 1;
+        this.setState({
+            messages: {...messages,
+                [messageId]: {text: message, sender: sender}},
+        });
+        this.props.sendMessage(messageId, message, sender, chatId);
     };
 
     addChat = (title) => {
@@ -80,17 +73,21 @@ export default class Layout extends Component {
                 <Header chatId = { this.props.chatId } />
                 <div className = "d-flex justify-content-center w-100 layout-left-side">
                     <div className = "pr-5 w-30">
-                        <ChatList chats = { this.state.chats } addChat = { this.addChat } />
+                    <ChatList />
                     </div>
                     <div className = "d-flex justify-content-center w-100 layout-right-side">
-                        <Messages  
-                        chatId = { this.props.chatId }
-                        chats = { this.state.chats }
-                        messages = { this.state.messages }
-                        sendMessage = { this.sendMessage } />
+                    <Messages
+                           chatId={ this.props.chatId }
+                           messages={ this.state.messages }
+                           sendMessage={ this.sendMessage }
+                       />
                     </div>
                 </div>
             </div>
         )
     }
 }
+
+let mapStateToProps = ({}) => ({})
+const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);
