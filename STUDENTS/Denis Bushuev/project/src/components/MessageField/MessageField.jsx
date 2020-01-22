@@ -1,60 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from "redux";
+import connect from 'react-redux/es/connect/connect';
 import { TextField, FloatingActionButton } from 'material-ui';
 import SendIcon from 'material-ui/svg-icons/content/send';
 import Message from '../Message/Message.jsx';
 import './style.css';
 
-export default class MessageField extends React.Component {
+class MessageField extends React.Component {
     static propTypes = {
         chatId: PropTypes.number.isRequired,
+        messages: PropTypes.object.isRequired,
+        chats: PropTypes.object.isRequired,
+        sendMessage: PropTypes.func.isRequired,
     };
 
     state = {
-        chats: {
-            1: {title: 'Чат 1', messageList: [1]},
-            2: {title: 'Чат 2', messageList: [2]},
-            3: {title: 'Чат 3', messageLis: []},
-        },
-        messages: {
-            1: { text: "Привет!", sender: 'bot' },
-            2: { text: "Привет!", sender: 'bot' }
-        },
-        input: ''
+        input: '',
     };
 
-    componentDidUpdate(prevProps, prevState) {
-        const { messages } = this.state;
-        if(Object.keys(prevState.messages).length < Object.keys(messages).length && Object.values(messages)[Object.values(messages).length - 1].sender === 'user') {
-            setTimeout(() =>
-                this.handleSendMessage('Привет!', 'bot'),
-            1000);
-        }
-    };
-
-    randomBot() {
-        if(this.state.messages.length < 4) {
-            return "У меня пока мало диалогов, но думаю в скором времени это исправят =)";
-        } else {
-            let randBot = ["Ну что тебе еще надо?", "Знаешь, Я думаю, что WoW самая лучшая ммо =)", "Знаешь Я думаю не стоит писать белиберду =)", "Я смотрю ты хороший собеседник", "Ищешь баги? Я только за!", "Оставь обо мне отзыв =)"];
-            return(randBot[Math.floor(Math.random() * randBot.length)]);
-        }
-    }
+    // randomBot() {
+    //     if(this.state.messages.length < 4) {
+    //         return "У меня пока мало диалогов, но думаю в скором времени это исправят =)";
+    //     } else {
+    //         let randBot = ["Ну что тебе еще надо?", "Знаешь, Я думаю, что WoW самая лучшая ммо =)", "Знаешь Я думаю не стоит писать белиберду =)", "Я смотрю ты хороший собеседник", "Ищешь баги? Я только за!", "Оставь обо мне отзыв =)"];
+    //         return(randBot[Math.floor(Math.random() * randBot.length)]);
+    //     }
+    // }
 
     handleSendMessage = (message, sender) => {
-        const { messages, chats, input } = this.state;
-        const { chatId } = this.props;
-
-        if(input.length > 0 || sender === 'bot') {
-            const messageId = Object.keys(messages).length + 1;
-            this.setState({
-                messages: {...messages, [messageId]: {text: message, sender: sender}},
-                chats: {...chats, [chatId]: {...chats[chatId], messageList: [...chats[chatId]['messageList'], messageId]}},
-            })
-        }
+        if(this.state.input.length > 0 || sender === 'bot') {
+            this.props.sendMessage(message, sender);
+        };
         if(sender === 'user') {
-            this.setState({ input: '' })
-        }
+            this.setState({ input: '' });
+        };
     };
 
     handleChange = (event) => {
@@ -68,18 +48,16 @@ export default class MessageField extends React.Component {
     };
 
     render() {
-        const { messages, chats } = this.state;
-        const { chatId } = this.props;
-        const messageElements = chats[chatId].messageList.map((messageId, index) => (
-            <Message 
-                key={ index }
+        const { chatId, messages, chats } = this.props;
+        const messageElements = chats[chatId].messageList.map(messageId => (
+            <Message
+                key={ messageId }
                 text={ messages[messageId].text }
                 sender={ messages[messageId].sender }
             />
         ));
-
+        
         return <div className="message-head">
-            <h1>MyChat</h1>
             <div key="messageElements" className="message-field">
                 { messageElements }
             </div>
@@ -102,3 +80,11 @@ export default class MessageField extends React.Component {
         </div>
     }
 }
+
+const mapStateToProps = ({ chatReducer }) => ({
+    chats: chatReducer.chats,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MessageField);
