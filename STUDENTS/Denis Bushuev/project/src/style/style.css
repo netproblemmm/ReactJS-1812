@@ -1,7 +1,21 @@
 body {
-    background-color: green;
+    margin: 0;
 }
 
-.element {
-    color: red;
+#root {
+    height: 100%;
+}
+
+.layout-canvas {
+    display: flex;
+}
+
+.layout-left-side {
+    background-color: #ccc;
+    width: 30%;
+    height: 300px;
+}
+
+.layout-right-side {
+    width: 70%;
 }

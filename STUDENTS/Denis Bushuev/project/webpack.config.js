@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCssAssetsWebpackPlugin = require('optimize-css-assets-webpack-plugin');
 
 module.exports = {
     entry: './src/index.jsx',
@@ -11,16 +12,28 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, './'),
         compress: true,
-        port: 8080
+        port: 8080,
+        historyApiFallback: {
+            index: 'index.html'
+        }
     },
+    devtool: 'cheap-inline-module-source-map',
     module: {
         rules: [
             {
                 test: /\.(js|jsx)$/,
                 exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader'
-                },
+                loader: 'babel-loader',
+                options: {
+                    plugins: [
+                        [
+                            "@babel/plugin-proposal-class-properties",
+                            {
+                                "loose": true
+                            }
+                        ]
+                    ]
+                }
             },
             {
                 test: /\.css$/i,
@@ -41,5 +54,9 @@ module.exports = {
             chunkFilename: '[id].css',
             ignoreOrder: false
         }),
+        new OptimizeCssAssetsWebpackPlugin({
+            assetNameRegExp: /\.css$/g,
+            cssProcessor: require('cssnano')
+        })
     ],
 }

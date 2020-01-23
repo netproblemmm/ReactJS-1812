@@ -1,0 +1,25 @@
+
+
+.chat-preview-card {
+    display: flex;
+    padding: 0px 20px;
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+.chat-preview-card h3 {
+    line-height: 15px;
+}
+
+.chat-preview-card p {
+    line-height: 10px;
+}
+
+.chat-preview-card img {
+    border-radius: 50%;
+    margin-top: 30%;
+}
+
+.chat-preview-desc {
+    padding: 0 20px;
+}

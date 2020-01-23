@@ -1,0 +1,8 @@
+.chanel-link {
+    text-decoration: none;
+}
+
+.chanel:hover {
+    color: white;
+    background-color: grey;
+}
