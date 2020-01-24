@@ -11,7 +11,7 @@ export default class Chat extends Component {
 
     render () {
         return (
-            <ListItem button onClick = { () => { this.props.addChat () } }>
+            <ListItem button>
                 <ListItemAvatar>
                   <Avatar alt="Profile Picture" />
                 </ListItemAvatar>
