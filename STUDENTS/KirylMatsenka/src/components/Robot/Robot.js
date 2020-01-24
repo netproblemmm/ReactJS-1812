@@ -16,12 +16,21 @@ export default class Robot {
     }
 
     robAnswers (messages) {
-        return messages.filter (message => message.user === this.name)
+        let keys = Object.keys (messages).filter (key => messages[key].user === this.name)
+
+        return Object.keys (messages)
+        .filter (key => keys.includes(key))
+        .reduce ((obj, key) => {
+            return {
+                ...obj,
+                [key]: messages[key]
+            }
+        }, {})
     }
     
     answer (messages) {
 
-        if (this.robAnswers (messages).length <= 1) {
+        if (Object.keys (this.robAnswers (messages)).length === 1) {
             return this.firstAnswer
         }
 
@@ -37,7 +46,7 @@ export default class Robot {
 
         while (true) {
             random = parseInt (Math.random () * (answers.length - 0) + 0)
-            if (messages[messages.length - 1].body !== answers[random].body) {
+            if (messages[Object.keys (messages).length].body !== answers[random].body) {
                 return answers[random]
             } 
         }
@@ -47,9 +56,9 @@ export default class Robot {
         let i
         let questions = []
 
-        for (i = messages.length - 1; i > 0; i--) {
+        for (i = Object.keys(messages).length; i > 0; i--) {
             if (messages[i].user === this.name) {
-                break;
+                break
             }
             questions.push (messages[i])
         }
