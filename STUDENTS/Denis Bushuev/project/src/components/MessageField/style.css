@@ -1,0 +1,30 @@
+.message-field {
+    display: flex;
+    flex-direction: column;
+    background-color: #e2e2e2;
+    height: 300px;
+    width: 100%;
+    overflow-y: scroll;
+}
+
+.message-head {
+    height: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.inputSend {
+    font-size: 22px;
+}
+
+.btnSend {
+    font-size: 22px;
+}
+
+.allSend {
+    display: flex;
+    width: 100%;
+    padding: 10px 0 0 0;
+}
