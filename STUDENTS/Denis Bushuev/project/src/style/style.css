@@ -1,13 +1,21 @@
-html {
-    height: 100%;
-}
-
 body {
     margin: 0;
-    height: 100%;
-    background-image: url(https://blog.jahnelgroup.com/assets/images/presence.jpg);
 }
 
 #root {
     height: 100%;
+}
+
+.layout-canvas {
+    display: flex;
+}
+
+.layout-left-side {
+    background-color: #ccc;
+    width: 30%;
+    height: 300px;
+}
+
+.layout-right-side {
+    width: 70%;
 }
