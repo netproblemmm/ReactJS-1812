@@ -21,7 +21,8 @@ function chatReducer(state=initialState,action){
             }
                 
             const Updatedchats = state.chats
-            Updatedchats[action.value.ChatId].messageList = [...state.chats[action.value.ChatId].messageList,action.value.text,state.botMessages[getRandomInRange()].text]
+            
+            Updatedchats[action.ChatId].messageList = [...state.chats[action.ChatId].messageList,{sender:action.sender,text:action.text,}]
             return Object.assign(
                 {},state,{chats:Updatedchats}
               )
@@ -33,7 +34,15 @@ function chatReducer(state=initialState,action){
             return Object.assign(
                 {},state,{chats:prevChats,chatCounter:state.chatCounter+1}
             )
-                  
+        case "CLEAR":
+            const EmptyChats = {
+                1:{title:"Чат 1",messageList:[]},
+                2:{title:"Чат 2",messageList:[]},
+                3:{title:"Чат 3",messageList:[]},
+            }
+            return Object.assign(
+                {},state,{chats:EmptyChats,chatCounter:3}
+            )         
             
             
       default:

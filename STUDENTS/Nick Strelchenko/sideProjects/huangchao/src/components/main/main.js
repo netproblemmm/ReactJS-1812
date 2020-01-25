@@ -1,5 +1,5 @@
 import React from 'react'
-import './main.scss'
+import './main.css'
 import BronStola from '../bron-stola/bron-stola'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'

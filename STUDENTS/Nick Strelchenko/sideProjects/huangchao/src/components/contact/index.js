@@ -1,2 +1,2 @@
-import Contact from './cotact'
+import Contact from './cotact.js'
 export default Contact

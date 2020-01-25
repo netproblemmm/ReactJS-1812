@@ -1,0 +1,16 @@
+.back {
+    flex:0 0 auto;
+    background-image: url("https://huangchao.ru/static/img/footer_3.jpg");
+    max-height: 455px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+
+
+@media(max-width:768px){
+    .backDiv{
+        background-image:none;
+        background-color:black;
+    }    
+}

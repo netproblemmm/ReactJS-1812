@@ -11,23 +11,18 @@ import chatReducer from '../../reducers/chatReducer'
 class Message extends React.Component{
     
     render(){
-        
-        const currentChat = this.props.state.chats[this.props.chatId-0].messageList
-        console.log('now chat',currentChat)
-        console.log("в месседж пришло:",this.props.state)
-        console.log("length",currentChat.length)
-        
+       
+        const currentChat = this.props.state.chatReducer.chats[this.props.chatId-0].messageList
         const ListOfMsg = ()=>{
-            let i = 0
             const lstofmsgs = currentChat.map((item)=>{
-                i+=1
-                if (i%2===0){
+                
+                if (item.sender==="Robot"){
                     return(
                         
                         <div className="d-flex justify-content-end m-3 text-white">
                             <div className='w-25 bg-info'style={{borderRadius:"10px",}}>
-                                    <h4 style={{borderBottom:"1px dotted white"}}>Robot</h4>
-                                    <p>{item}</p>
+                                    <h4 style={{borderBottom:"1px dotted white"}}>{item.sender}</h4>
+                                    <p>{item.text}</p>
                             </div>
                         </div>
                     )
@@ -37,8 +32,8 @@ class Message extends React.Component{
                         
                         <div className="d-flex justify-content-start m-3 text-white">
                             <div className='w-25 bg-success'style={{borderRadius:"10px",}}>
-                                    <h4 style={{borderBottom:"1px dotted white"}}>User</h4>
-                                    <p>{item}</p>
+                                    <h4 style={{borderBottom:"1px dotted white"}}>{item.sender}</h4>
+                                    <p>{item.text}</p>
                             </div>
                         </div>    
                     )

@@ -1,2 +1,2 @@
-import Dostavka from './dostavka'
+import Dostavka from './dostavka.js'
 export default Dostavka

@@ -1,5 +1,5 @@
 import React from 'react'
-import './item-list.scss'
+import './item-list.css'
 import Card from 'react-bootstrap/Card'
 import Button from 'react-bootstrap/Button'
 import Container from 'react-bootstrap/Container'
@@ -37,7 +37,7 @@ export default class ItemList extends React.Component{
                             }
                         return i 
                     })
-                    console.log(newData)
+                    
                     dataToSave=newData
                 }
                 else{
@@ -54,7 +54,7 @@ export default class ItemList extends React.Component{
                 localStorage.setItem("products",JSON.stringify(dataToSave))
                 
             }
-            console.log(localStorage)
+            
         }
         
         

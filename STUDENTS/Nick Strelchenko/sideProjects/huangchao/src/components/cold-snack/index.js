@@ -1,2 +1,2 @@
-import ColdSnack from './cold-snack'
+import ColdSnack from './cold-snack.js'
 export default ColdSnack

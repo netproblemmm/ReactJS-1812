@@ -1,2 +1,2 @@
-import Banket from './banket'
+import Banket from './banket.js'
 export default Banket

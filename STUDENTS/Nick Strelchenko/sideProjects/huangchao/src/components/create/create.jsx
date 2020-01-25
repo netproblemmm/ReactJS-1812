@@ -16,7 +16,7 @@ export default class Create extends React.Component{
         
         const ListOfProducts = ()=>{
             let returnObj = JSON.parse(localStorage.getItem("products"))
-            console.log(returnObj)
+            
             let objMap = returnObj.map((item)=>{
                 return(
                     <tr key={item.id}>
