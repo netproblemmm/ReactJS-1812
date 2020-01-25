@@ -1,8 +1,11 @@
 import React, {Component} from 'react'
-import Messages from '../Messages/Messages.jsx'
-import Header from '../Header/Header.jsx'
-import ChatList from '../ChatList/ChatList.jsx'
 import PropTypes from 'prop-types'
+import Messages from '../Messages/Messages.jsx'
+
+import ChatList from '../ChatList/ChatList.jsx'
+
+import Header from '../Header/Header.jsx'
+
 
 import './style.css'
 
