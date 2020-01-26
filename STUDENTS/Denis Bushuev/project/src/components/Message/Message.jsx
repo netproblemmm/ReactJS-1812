@@ -1,16 +1,20 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
 import './style.css';
 
-let message = (props) => {
-    let senderName = props.msg.usrName
-    let text = props.msg.msgBody
-    return (
-        <div className="d-flex flex-column">
-            <strong className="send">{ senderName }</strong>
-            <p>{ text }</p>
-        </div>
-    )
-};
+export default class Message extends React.Component {
+    static propTypes = {
+        text: PropTypes.string.isRequired,
+        sender: PropTypes.string.isRequired,
+    };
 
-export default message;
+    render() {
+        return <div 
+            className="message"
+            style={ { alignSelf: this.props.sender === 'bot' ? 'flex-start' : 'flex-end' } }
+        >
+            <div>{ this.props.text }</div>
+            <div className="message-sender">{ this.props.sender }</div>
+        </div>
+    }
+}

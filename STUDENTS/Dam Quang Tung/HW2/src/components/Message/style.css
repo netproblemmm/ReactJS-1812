@@ -1,0 +1,10 @@
+.msg-cloud {
+    background-color: lightblue;
+    padding: 5px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.msg-margin {
+    margin: 10px 0;
+}

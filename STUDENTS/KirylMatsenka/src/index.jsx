@@ -3,21 +3,21 @@ import ReactDom from 'react-dom'
 import $ from 'jquery'
 import Popper from 'popper.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Container from '@material-ui/core/Container'
-
-import BlockMain from './components/BlockMain/BlockMain.jsx'
-import Header from './components/Header/Header.jsx'
 import Box from '@material-ui/core/Box'
 import './styles/styles.css'
+import { BrowserRouter } from 'react-router-dom'
+import Router from './components/router.jsx'
 
-let user = { id: 1, name: 'Вася' }
+import initStore from './store.js'
+import { Provider } from 'react-redux'
 
 ReactDom.render (
-    <Box height={'100vh'}>
-        <Container maxWidth="lg">
-            <Header />
-            <BlockMain user={ user } />
-        </Container>
-     </Box>, 
+    <Provider store = { initStore () }>
+        <BrowserRouter>
+            <Box height={'100vh'}>
+                <Router />
+            </Box>
+        </BrowserRouter>
+     </Provider>, 
     document.querySelector ('#app')
 )
