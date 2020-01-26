@@ -1,5 +1,5 @@
 import React from 'react'
-import './header.scss'
+import './header.css'
 import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 import NavDropdown from 'react-bootstrap/NavDropdown'
@@ -22,10 +22,10 @@ export default class Header extends React.Component{
                     </div>
                     <div className='col-3 d-flex flex-column '>
                         <span className='text-right headerPhoneSpan'>
-                            <a href="tel:+7(495)259-58-85">+7(495)259-58-85</a>
+                            <a className="hoverTel" href="tel:+7(495)259-58-85">+7(495)259-58-85</a>
                         </span>
                         <span className='text-right headerPhoneSpan'>
-                            <a href='tel:+7(977)970-66-58 '>+7(977)970-66-58 </a>
+                            <a className="hoverTel" href='tel:+7(977)970-66-58 '>+7(977)970-66-58 </a>
                         </span>
                     </div>
                 </Nav>
@@ -33,7 +33,7 @@ export default class Header extends React.Component{
                     <LinkContainer to='/'>
                         <Navbar.Brand >
                             <img className='img-fluid w-50'
-                                src='./logo_2.png' alt="Логотип"
+                                src='https://huangchao.ru/static/img/logo_2.png' alt="Логотип"
                             />
                             
                         </Navbar.Brand>

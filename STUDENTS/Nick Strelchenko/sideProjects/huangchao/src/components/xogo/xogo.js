@@ -1,5 +1,5 @@
 import React from 'react'
-import './xogo.scss'
+import './xogo.css'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -12,18 +12,18 @@ export default class Xogo extends React.Component{
     
     render(){
         const images =[
-            'banket_photo_1.jpg',
-            'banket_photo_2.jpg',
-            'banket_photo_3.jpg',
-            'banket_photo_4.jpg',
-            'banket_photo_5.jpg',
-            'banket_photo_6.jpg',
-            'banket_photo_7.jpg',
-            'banket_photo_8.jpg',
-            'banket_photo_9.jpg',
-            'banket_photo_10.jpg',
-            'banket_photo_14.jpg',
-            'banket_photo_15.jpg',
+            'https://huangchao.ru/static/img/banket_photo_1.jpg',
+            'https://huangchao.ru/static/img/banket_photo_2.jpg',
+            'https://huangchao.ru/static/img/banket_photo_3.jpg',
+            'https://huangchao.ru/static/img/banket_photo_4.jpg',
+            'https://huangchao.ru/static/img/banket_photo_5.jpg',
+            'https://huangchao.ru/static/img/banket_photo_6.jpg',
+            'https://huangchao.ru/static/img/banket_photo_7.jpg',
+            'https://huangchao.ru/static/img/banket_photo_8.jpg',
+            'https://huangchao.ru/static/img/banket_photo_9.jpg',
+            'https://huangchao.ru/static/img/banket_photo_10.jpg',
+            'https://huangchao.ru/static/img/banket_photo_14.jpg',
+            'https://huangchao.ru/static/img/banket_photo_15.jpg',
         ]    
         return(
             <Container fluid className='mt-3'>
@@ -37,22 +37,22 @@ export default class Xogo extends React.Component{
                 </Row>    
                 <Row className='mt-3 mb-5'>
                     <Col>
-                        <Image fluid src='./page_xogo_photo_1.jpg'/>
+                        <Image fluid src='https://huangchao.ru/static/img/page_xogo_photo_1.jpg'/>
                         
                     </Col>
                     <Col>
-                        <Image fluid src='./page_xogo_photo_2.jpg'/>
+                        <Image fluid src='https://huangchao.ru/static/img/page_xogo_photo_2.jpg'/>
                     </Col>
                 </Row>
                 <Row>
                     <Col sm={12} md={{span:4}} className='mb-5' >
-                        <Image fluid src='./nashi_gosti_1.jpg'/>
+                        <Image fluid src='https://huangchao.ru/static/img/nashi_gosti_1.jpg'/>
                     </Col>
                     <Col sm={12} md={4} className='mb-5'>
-                        <Image fluid src='./nashi_gosti_2.jpg'/>
+                        <Image fluid src='https://huangchao.ru/static/img/nashi_gosti_2.jpg'/>
                     </Col>
                     <Col sm={12} md={4} className='mb-5'>
-                        <Image fluid src='./nashi_gosti_3.jpg'/>
+                        <Image fluid src='https://huangchao.ru/static/img/nashi_gosti_3.jpg'/>
                     </Col>
                 </Row> 
                 <ImageModalGallery images={images}/>

@@ -2,7 +2,7 @@ import React from 'react'
 import Container from 'react-bootstrap/Container'
 import Carousel from 'react-bootstrap/Carousel'
 import Image from 'react-bootstrap/Image'
-import './banner.scss'
+import './banner.css'
 
 export default class Banner extends React.Component{
     render(){
@@ -11,19 +11,19 @@ export default class Banner extends React.Component{
                 { document.documentElement.clientWidth>=992 ?(
                     <Carousel interval={5000} className='text-center'>
                         <Carousel.Item>
-                            <Image src="./banner_obshee.jpg" fluid/>
+                            <Image src="https://huangchao.ru/static/img/banner_obshee.jpg" fluid/>
                             
                         </Carousel.Item>
                         <Carousel.Item>
-                            <Image src="./banner_obshee.jpg" fluid/>                    
+                            <Image src="https://huangchao.ru/static/img/banner_obshee.jpg" fluid/>                    
                         </Carousel.Item>
                         <Carousel.Item>
-                            <Image src="./banner_obshee.jpg" fluid/>
+                            <Image src="https://huangchao.ru/static/img/banner_obshee.jpg" fluid/>
                         </Carousel.Item>               
                     </Carousel>
                 ):(
                     <Container fluid className='pl-0 pr-0'>
-                        <Image src="./banner_obshee.jpg" fluid/>
+                        <Image src="https://huangchao.ru/static/img/banner_obshee.jpg" fluid/>
                     </Container>
                 ) }
             </React.Fragment>

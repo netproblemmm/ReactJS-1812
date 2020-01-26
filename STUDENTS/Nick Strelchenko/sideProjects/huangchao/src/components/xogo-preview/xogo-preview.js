@@ -1,5 +1,5 @@
 import React from 'react'
-import './xogo-preview.scss'
+import './xogo-preview.css'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -11,7 +11,7 @@ export default class XogoPreview extends React.Component{
                 <Row>
                     <Col md={12} lg={6} className='d-flex  align-items-center'>
                         <img    className='img-fluid ' 
-                                src='./xogo.jpg'
+                                src='https://huangchao.ru/static/img/xogo.jpg'
                                 alt='Фото Хого'/>
                     </Col>
                     <Col md={12} lg={6}  className='d-flex flex-column justify-content-center text-center xogoTextDiv'>
