@@ -3,9 +3,9 @@ import {SEND_MESSAGE} from '../actions/message_actions.js'
 
 const initialStore = {
     messages: { 
-        // 1: {text: 'Lol i am robo', sender: 'bot'},
-        // 2: {text: 'Lol i am robo', sender: 'bot'},
-        // 3: {text: 'Lol i am robo', sender: 'bot'}
+        1: {text: 'Lol i am robo', sender: 'bot'},
+        2: {text: 'Lol i am robo', sender: 'bot'},
+        3: {text: 'Lol i am robo', sender: 'bot'}
      }
 }
 

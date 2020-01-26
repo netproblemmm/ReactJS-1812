@@ -1,12 +1,13 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {bindActionCreators} from 'redux'
-import connect from 'react-redux/es/connect/connect'
-import { TextField, FloatingActionButton } from 'material-ui'
+import connect from 'react-redux/es/connect/connect.js'
+import {TextField, FloatingActionButton} from 'material-ui'
 import SendIcon from 'material-ui/svg-icons/content/send'
 import Message from '../Message/Message.jsx'
 import {sendMessage} from '../../actions/message_actions.js'
 import './style.css'
+import ChatList from '../ChatList/ChatList.jsx'
 
 let usrName = 'Human'
 let botName = 'Mr.Robo'
@@ -22,6 +23,10 @@ class Messages extends Component {
     state = {
         input: '',
     };
+
+    componentDidMount () {
+        this.textInput.current.focus()
+    }
 
     sendMessage = (message, sender) => {
        const {chatId, messages} = this.props
