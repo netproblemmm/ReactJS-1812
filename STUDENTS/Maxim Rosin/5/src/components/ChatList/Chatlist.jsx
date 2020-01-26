@@ -6,8 +6,14 @@ import { TextField } from 'material-ui'
 import AddIcon from 'material-ui/svg-icons/content/add'
 import ContentSend from 'material-ui/svg-icons/content/send'
 
+//store
+import { addChat } from '../../actions/chat_actions.js'
+import { connect } from 'react-redux'
+import { bindActionCreators } from 'redux'
 
-export default class ChatList extends React.Component {
+
+
+class ChatList extends React.Component {
     state = {
         input: '',
     }
@@ -57,4 +63,12 @@ export default class ChatList extends React.Component {
             </List>           
         )
     }
-}
+} 
+
+let mapStateToProps = ({ chatReducer }) => ({
+    chats: chatReducer.chats
+})
+
+let mapDispatchToProps = dispatch => bindActionCreators ({ addChat }, dispatch)
+
+export default connect (mapStateToProps, mapDispatchToProps) (ChatList)
