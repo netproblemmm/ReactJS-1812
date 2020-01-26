@@ -1,2 +1,2 @@
-import Cart from './cart'
+import Cart from './cart.jsx'
 export default Cart

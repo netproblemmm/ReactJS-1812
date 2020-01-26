@@ -1,2 +1,2 @@
-import YandexMap from './yandex-map'
+import YandexMap from './yandex-map.js'
 export default YandexMap

@@ -8,7 +8,7 @@ import {LinkContainer} from 'react-router-bootstrap'
 import Button from 'react-bootstrap/Button'
 import YandexMap from '../yandex-map/yandex-map'
 import ImageModalGallery from '../img-mod-gal/img-mod-gal'
-import './banket.scss'
+import './banket.css'
 
 
 
@@ -16,9 +16,9 @@ export default class Banket extends React.Component{
     
     render(){
         const images=[
-            './banket_photo_4.jpg',
-            './banket_photo_5.jpg',
-            './banket_photo_6.jpg'
+            'https://huangchao.ru/static/img/banket_photo_4.jpg',
+            'https://huangchao.ru/static/img/banket_photo_5.jpg',
+            'https://huangchao.ru/static/img/banket_photo_6.jpg'
         ]
         let greenStyle = {
             color:'green',

@@ -1,5 +1,5 @@
 import React from 'react'
-import './yandex-map.scss'
+import './yandex-map.css'
 
 export default class YandexMap extends React.Component{
     render(){
