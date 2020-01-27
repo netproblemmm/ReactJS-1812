@@ -22,22 +22,10 @@ class Messages extends Component {
             valid: true,
             scrollElement: null,
             timeOuts: null,
-            rob: new Robot (),
         }
     }
 
-    componentDidMount () {
-        // Привет от робота
-        if (Object.keys (this.props.chats[this.props.chat]).length === 0) {
-            let hiFromRobot = setTimeout (() => {
-                this.props.sendMessage (this.state.rob.hello.body, this.state.rob.hello.user, this.props.chat)
-            }, 3000)
-            this.setState ({
-                scrollElement: document.querySelector ('#messages'),
-                timeOuts: hiFromRobot,
-            })
-        }
-        
+    componentDidMount () { 
         // Это поле диалога
         this.setState ({
             scrollElement: document.querySelector ('#messages'),
@@ -45,21 +33,6 @@ class Messages extends Component {
     }
 
     componentDidUpdate () {
-        let messages = this.props.chats[this.props.chat].messages
-
-        let answerMessage = window.setTimeout (() => {
-            let answer = Object.keys (messages).length > 0 ? this.state.rob.answer (this.props.chats[this.props.chat].messages) : this.state.rob.hello
-            this.props.sendMessage (answer.body, answer.user, this.props.chat)
-        }, 3000)
-
-        if (messages[Object.keys (messages).length] && messages[Object.keys (messages).length].user == 'Rob') {
-            while (answerMessage > this.state.timeOuts) {
-                window.clearTimeout (answerMessage)
-                answerMessage-- 
-            }
-        } else {
-            answerMessage
-        }
         // Scroll down automatically    
         if (this.getLastMessageInField ()) {
             this.getLastMessageInField ().scrollIntoView ({ behavior: 'smooth', block: 'center' })
@@ -98,8 +71,8 @@ class Messages extends Component {
             justifyContent={ m[id].user == this.props.user.name ? "flex-end" : "flex-start" }
             m={2}
         >
-            <Message msg={ m[id] } user={ this.props.user }/>
-        </Box>
+             <Message msg={ m[id] } user={ this.props.user }/>
+         </Box>
         )
     
         return (
