@@ -32,25 +32,7 @@ class Messages extends Component {
         this.state = {
             inputText: ''
         }
-        this.answArr = ['Как дела?', 'Добрый день. Чем могу помочь?', 'Рад помочь!', 'Хорошего дня!', 'Что делаешь?']
     }
-
-    // RobotAnswer() {
-    //     let rndIndex = Math.floor((Math.random()*5))
-    //     let robotAnswer = this.answArr[rndIndex]
-    //     setTimeout(() => {
-    //         let msgId = Date.now()
-    //         this.setState(function(state, props) {
-    //             state.messages.set(msgId, {
-    //                 author: 'Robot',
-    //                 text: robotAnswer
-    //             })
-    //             return (state)
-    //         })
-    //         this.props.addMessage(msgId);
-    //     }, 1000)
-    //     console.log(this.state)
-    // }
 
     sendMessage = () => {
         if (this.state.inputText.length > 0) {

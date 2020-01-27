@@ -29,18 +29,16 @@ export default class Layout extends Component {
         } else {
             chatId = parseInt(chatId)
         }
-
-        console.log(chatId);
         
         return (
-            <Grid container spacing={3}>
+            <Grid container >
                 <Grid item container xs={12}>
                     <Header/>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
                     <Chanels/>
                 </Grid>
-                <Grid item xs={9}>
+                <Grid item xs={10}>
                     <Messages user={ user } chatId= {chatId}/>
                 </Grid>
                 <Grid item xs={12}>
