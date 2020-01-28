@@ -13,6 +13,13 @@ import { bindActionCreators } from 'redux'
 
 
 class ChatList extends Component {
+    constructor (props) {
+        super (props)
+
+        this.state = {
+            chats: null
+        }
+    }
     static propTypes = {
         push: PropTypes.func.isRequired
     }    
@@ -23,6 +30,19 @@ class ChatList extends Component {
 
     addChat = () => {
         this.props.addChat ()
+    }
+
+    async componentWillMount () {
+        try {
+            await fetch ('https://raw.githubusercontent.com/KirylJazzSax/api/master/chats.json')
+            .then (data => data.json ())
+            .then (json => {
+                this.setState ({ chats: json })
+            })
+        }
+        finally {
+            console.log ('Chats loaded')
+        }   
     }
 
     render () {

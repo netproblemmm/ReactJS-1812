@@ -7,7 +7,6 @@ import Fab from '@material-ui/core/Fab'
 import Box from '@material-ui/core/Box'
 import ScrollBottom from './ScrollBottom.jsx'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
-import Robot from '../Robot/Robot.js'
 
 import { sendMessage } from '../../actions/message_actions.js'
 import { connect } from 'react-redux'
@@ -21,11 +20,24 @@ class Messages extends Component {
             messageInput: '',
             valid: true,
             scrollElement: null,
-            timeOuts: null,
+            messages: null
         }
     }
 
-    componentDidMount () { 
+    async componentWillMount () {
+        try {
+            await fetch ('https://raw.githubusercontent.com/KirylJazzSax/api/master/messages.json')
+            .then (data => data.json ())
+            .then (json => {
+                this.setState ({ messages: json })
+            })
+        } 
+        finally {
+            console.log ('Messages loaded')
+        }
+    }
+
+    componentDidMount () {
         // Это поле диалога
         this.setState ({
             scrollElement: document.querySelector ('#messages'),
@@ -63,17 +75,21 @@ class Messages extends Component {
     }
 
     render () {
-        let m = this.props.chats[this.props.chat].messages
-        let messages = Object.keys (m).map (id => 
-        <Box
-            key={ id } 
-            display="flex" 
-            justifyContent={ m[id].user == this.props.user.name ? "flex-end" : "flex-start" }
-            m={2}
-        >
-             <Message msg={ m[id] } user={ this.props.user }/>
-         </Box>
-        )
+        let messages
+        if (this.state.messages !== null) {
+            let m = this.state.messages[this.props.chat]
+            messages = Object.keys (m).map (id => 
+            <Box
+                key={ id } 
+                display="flex" 
+                justifyContent={ m[id].user == this.props.user.name ? "flex-end" : "flex-start" }
+                m={2}
+            >
+                <Message msg={ m[id] } user={ this.props.user }/>
+            </Box>
+            )
+        }
+        
     
         return (
             <Grid container item xs={9} alignContent={'flex-end'}>
@@ -119,9 +135,10 @@ class Messages extends Component {
     }
 }
 
-let mapStateToProps = ({ chatReducer }) => ({
+let mapStateToProps = ({ chatReducer, messageReducer }) => ({
     chats: chatReducer.chats,
-    user: chatReducer.user
+    user: chatReducer.user,
+    messages: messageReducer.messages
 })
 
 let mapDispatchToProps = dispatch => bindActionCreators ({ sendMessage }, dispatch)

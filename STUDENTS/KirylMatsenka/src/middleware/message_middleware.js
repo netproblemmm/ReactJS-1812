@@ -10,7 +10,8 @@ export default store => next => (action) => {
                 setTimeout (() => {
                     store.dispatch (
                         sendMessage (
-                            rob.answer(store.getState ().chatReducer.chats[action.chat].messages).body, rob.name, action.chat))
+                            rob.answer(
+                                store.getState ().chatReducer.chats[action.chat].messages).body, rob.name, action.chat))
                 }, 2000)
             }
     }
