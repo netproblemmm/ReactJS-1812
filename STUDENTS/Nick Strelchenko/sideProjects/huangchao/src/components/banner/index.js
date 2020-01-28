@@ -1,2 +1,2 @@
-import Banner from './banner/banner'
+import Banner from './banner/banner.js'
 export default Banner

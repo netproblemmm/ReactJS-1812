@@ -1,0 +1,18 @@
+.bronStolaWrapper{
+    background-image: url('https://huangchao.ru/static/img/bron.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    font-size: 2rem;
+}
+     
+    
+@media(max-width:500px){
+    .bronStolaFormRow{
+        flex-direction: column;
+    }
+    .bronStolaWrapper{
+        background-image:none;
+        background-color:black;
+    }
+}
