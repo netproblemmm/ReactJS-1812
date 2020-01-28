@@ -11,9 +11,12 @@ export default store => next => (action) => {
       if (action.sender === 'You') {
         let msgArr = store.getState().messagesReducer.roboMessages
         let id = getRandomInt(msgArr.length)
-        console.log(store.getState().messagesReducer.roboMessages)
+        let elem = document.getElementById(`chat-${ action.chatId }`);
+        console.log(action.chatId)
         setTimeout(() => store.dispatch(sendMessage(Object.keys(store.getState().messagesReducer.messages).length + 1,
           msgArr[id].body, msgArr[id].author, action.chatId)), 1000)
+        setTimeout(() => elem.className = "light", 1000)
+        setTimeout(() => elem.className = null, 3000)
       }
   }
   return next(action)
