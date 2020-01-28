@@ -18,15 +18,7 @@ class Messages extends React.Component {
         super (props)
 
         this.state = {
-            // messages: [
-            //     {body: 'Hello', author: null}, 
-            //     {body: 'What is up?', author: null}
-            // ],
-            // chats: {
-            //     1: {title: 'Чат 1', messageList: [1]},
-            //     2: {title: 'Чат 2', messageList: [2]},
-            //     3: {title: 'Чат 3', messageList: [3]},
-            // },
+
             input: ''
         }
     }
@@ -78,8 +70,10 @@ class Messages extends React.Component {
         //let { messages } = this.state
         let { chatId } = this.props
         let { chats } = this.props
+        let { messages } = this.props
 
-        let MessageArr = chats[chatId].messagesList.map (message => <Message msg={ {
+
+        let MessageArr = messages[chatId].messagesList.map (message => <Message msg={ {
             usrName: message.author ? message.author : user, 
             msgBody: message.body
         } }/>)
@@ -104,14 +98,16 @@ class Messages extends React.Component {
                     /> 
                 </div>
                 
-                <button onClick = { this.handleSendMessage }>Send</button>
+                <FloatingActionButton onClick={ () => this.handleSendMessage() }>
+                    <SendIcon />
+                </FloatingActionButton>
             </div>
         )
     }
 }
 
 let mapStateToProps = ({ messagesReducer }) => ({
-    chats: messagesReducer.chats
+    messages: messagesReducer.messages
 })
 
 let mapDispatchToProps = dispatch => bindActionCreators ({ sendMessage }, dispatch)
