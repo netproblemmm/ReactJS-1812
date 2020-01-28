@@ -6,8 +6,8 @@ import Message from '../Message/Message.jsx'
 import SendIcon from '@material-ui/icons/Send'
 import style from './style.css'
 import { styled } from '@material-ui/core/styles'
-
-import { sendMessage } from '../../actions/messages_actions'
+import CircularProgress from '@material-ui/core/CircularProgress';
+import { sendMessage, loadMessages } from '../../actions/messages_actions'
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -23,7 +23,9 @@ class Messages extends Component {
         messages: PropTypes.object.isRequired,
         chanels: PropTypes.object.isRequired,
         sendMessage: PropTypes.func.isRequired,
-        user: PropTypes.string.isRequired
+        loadMessages: PropTypes.func.isRequired,
+        user: PropTypes.string.isRequired,
+        isLoading: PropTypes.bool.isRequired
      };
 
     constructor (props) {
@@ -32,6 +34,10 @@ class Messages extends Component {
         this.state = {
             inputText: ''
         }
+    }
+
+    componentDidMount() {
+        this.props.loadMessages();
     }
 
     sendMessage = () => {
@@ -52,44 +58,51 @@ class Messages extends Component {
     }
 
     render () {
-        let { messageList } = this.props.chanels[this.props.chatId]
+        if(this.props.isLoading) {
+            return <CircularProgress></CircularProgress>
+        } else {
+
+            let { messageList } = this.props.chanels[this.props.chatId]
         
-        let header = this.props.chanels[this.props.chatId].title
+            let header = this.props.chanels[this.props.chatId].title
+    
+            let MessageArr = []
+    
+            messageList.forEach(element => {
+                let msg = this.props.messages[element]
+                MessageArr.push(<Message key={element} msg = {msg}/>)
+            });
 
-        let MessageArr = []
 
-        messageList.forEach(element => {
-            let msg = this.props.messages[element]
-            MessageArr.push(<Message key={element} msg = {msg}/>)
-        });
-
-        return (
-            <div className="msg-wrapper">
-                <h2>{header}</h2>
-                <div className="msg-field">
-                    { MessageArr }
+            return (
+                <div className="msg-wrapper">
+                    <h2>{header}</h2>
+                    <div className="msg-field">
+                        { MessageArr }
+                    </div>
+                    <div className="msg-controls">
+                        <MyField 
+                        name="input"
+                        label="Enter your message"
+                        value={ this.state.inputText }
+                        onChange={ this.keyboardHandler }
+                        onKeyUp={ this.keyboardHandler }/>
+                        <Fab onClick = { this.sendMessage }>
+                            <SendIcon />
+                        </Fab>
+                    </div>
                 </div>
-                <div className="msg-controls">
-                    <MyField 
-                    name="input"
-                    label="Enter your message"
-                    value={ this.state.inputText }
-                    onChange={ this.keyboardHandler }
-                    onKeyUp={ this.keyboardHandler }/>
-                    <Fab onClick = { this.sendMessage }>
-                        <SendIcon />
-                    </Fab>
-                </div>
-            </div>
-        )
+            )
+        }
     }
 }
 
 const mapStateToProps = ({ chanelsReducer, messageReducer }) => ({
     chanels: chanelsReducer.chanels,
     messages: messageReducer.messages,
+    isLoading: messageReducer.isLoading
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ sendMessage, loadMessages }, dispatch);
 
 export default connect (mapStateToProps, mapDispatchToProps)(Messages);

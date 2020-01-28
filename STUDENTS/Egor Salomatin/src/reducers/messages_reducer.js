@@ -1,12 +1,9 @@
 import update from 'react-addons-update'
-import { SEND_MESSAGE } from '../actions/messages_actions.js'
+import { SEND_MESSAGE, START_MESSAGES_LOADING, SUCCESS_MESSAGES_LOADING, ERROR_MESSAGES_LOADING } from '../actions/messages_actions.js'
 
 const initialStore = {
-    messages: { 
-        1: {text: 'Здравствуйте я Робот!', sender: 'bot'},
-        2: {text: 'Здравствуйте я Робот!', sender: 'bot'},
-        3: {text: 'Здравствуйте я Робот!', sender: 'bot'}
-     }
+    messages: {},
+    isLoading: false
 }
 
 export default function messageReducer(store = initialStore, action) {
@@ -15,6 +12,27 @@ export default function messageReducer(store = initialStore, action) {
             return update(store, {
                 messages: { $merge: { [action.messageId]: {text: action.text, sender: action.sender} } },
             });
+        }
+        case START_MESSAGES_LOADING: {
+            return update(store, {
+                isLoading: {$set: true},
+            })
+        }
+        case SUCCESS_MESSAGES_LOADING: {
+            let messages = {}
+            action.payload.forEach(msg => {
+                let { text, sender } = msg
+                messages[msg.id] = { text, sender }
+            })
+            return update(store, {
+                messages: {$set: messages},
+                isLoading: {$set: false}
+            })
+        }
+        case ERROR_MESSAGES_LOADING: {
+            return update(store, {
+                isLoading: {$set: false}
+            })
         }
         default:
             return store;
