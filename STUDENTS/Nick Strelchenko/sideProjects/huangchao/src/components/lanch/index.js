@@ -1,2 +1,2 @@
-import Lanch from './lanch'
+import Lanch from './lanch.js'
 export default Lanch

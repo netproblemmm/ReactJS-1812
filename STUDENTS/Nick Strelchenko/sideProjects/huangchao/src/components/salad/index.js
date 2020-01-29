@@ -1,2 +1,2 @@
-import Salad from './salad'
+import Salad from './salad.js'
 export default Salad

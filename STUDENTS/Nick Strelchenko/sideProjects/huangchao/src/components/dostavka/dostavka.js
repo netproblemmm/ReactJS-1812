@@ -1,5 +1,5 @@
 import React from 'react'
-import './dostavka.scss'
+import './dostavka.css'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
@@ -22,8 +22,8 @@ export default class Dostavka extends React.Component{
             <Col className='text-center'>
                 <h2 className='text-center'>Наши партнеры:</h2>
                 <div className='d-flex justify-content-center '>
-                    <img className='img-fluid' src='./yandex_eda.png' alt='Доставка через Яндекс.Еда'/>
-                    <img className='img-fluid' src='./delivery.png' alt='Доставка через Деливери Клаб'/>
+                    <img className='img-fluid' src='https://huangchao.ru/static/img/yandex_eda.png' alt='Доставка через Яндекс.Еда'/>
+                    <img className='img-fluid' src='https://huangchao.ru/static/img/delivery.png' alt='Доставка через Деливери Клаб'/>
                 </div>
             </Col>
             <YandexMap/>

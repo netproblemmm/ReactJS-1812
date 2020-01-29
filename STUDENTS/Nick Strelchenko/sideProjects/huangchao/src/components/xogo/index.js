@@ -1,2 +1,2 @@
-import Xogo from './xogo'
+import Xogo from './xogo.js'
 export default Xogo

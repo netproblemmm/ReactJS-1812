@@ -1,2 +1,2 @@
-import Soup from './soup'
+import Soup from './soup.js'
 export default Soup
