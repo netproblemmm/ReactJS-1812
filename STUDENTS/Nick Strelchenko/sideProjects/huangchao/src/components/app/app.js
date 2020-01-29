@@ -18,7 +18,7 @@ import Lanch from '../lanch/lanch'
 import Cart from '../cart'
 import Create from '../create'
 import {BrowserRouter,Route} from'react-router-dom'
-import './app.scss'
+import './app.css'
 
 
 

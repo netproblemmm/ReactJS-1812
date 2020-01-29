@@ -1,5 +1,5 @@
 import React from 'react'
-import './bron-stola.scss'
+import './bron-stola.css'
 import Container from 'react-bootstrap/Container'
 import Button from 'react-bootstrap/Button'
 import Row from 'react-bootstrap/Row'
@@ -16,8 +16,8 @@ export default class BronStola extends React.Component{
                     <Col md={10} className='bronStolaWrapper m-auto'>
                         <div className='d-flex flex-column align-items-center p-5'>
                             <div className='text-white text-center p-3'>{headingText}</div>
-                            <Form className=''>
-                                <Row>
+                            <Form >
+                                <Row className='bronStolaFormRow'>
                                     <Col>
                                         <Form.Control placeholder='КОЛ-ВО МЕСТ'/>
                                     </Col>

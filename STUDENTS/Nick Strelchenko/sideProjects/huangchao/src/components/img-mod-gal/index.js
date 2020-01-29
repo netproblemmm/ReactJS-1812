@@ -1,2 +1,2 @@
-import ImageModalGallery from './img-mod-gal'
+import ImageModalGallery from './img-mod-gal.js'
 export default ImageModalGallery

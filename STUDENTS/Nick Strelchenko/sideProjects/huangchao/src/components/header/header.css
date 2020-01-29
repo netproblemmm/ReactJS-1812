@@ -1,0 +1,25 @@
+.headerPhoneSpan a{
+    cursor:pointer;
+    color:white;
+  
+}
+.headerDiv{
+    background-color: rgba(0,0,0,0.45)!important;
+    
+}
+.hoverTel :hover{
+    color:red;
+    text-decoration:none;
+}
+#basic-nav-dropdown a{
+    color:white;
+}
+.dropdown-toggle{
+    color:white!important;
+}
+.nav-link:hover{
+    color:lightblue!important;
+}
+.fa-shopping-cart{
+    font-size:2rem;
+}
