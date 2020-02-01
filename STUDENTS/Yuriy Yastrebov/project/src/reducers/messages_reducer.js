@@ -8,7 +8,7 @@ import {
 
 const initialStore = {
     messages: {},
-     isLoading: false,
+    isLoading: false,
 }   
 
 export default function messageReducer (store = initialStore, action) {

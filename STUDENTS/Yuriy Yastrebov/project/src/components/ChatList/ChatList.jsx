@@ -58,18 +58,18 @@ class ChatList extends Component {
             <List>
                 {chatsArr}
                 <ListItem
-                   key="Добавить новый чат"
-                   leftIcon={<AddIcon />}
-                   onClick={this.handleAddChat}
-		   className="addChat"
-                   children= {<TextField
-                       key="textField"
-                       fullWidth
-                       name="input"
-                       hintText="Добавить новый чат"
-                       onChange={this.handleChange}
-                       value={this.state.input}
-                       onKeyUp={this.handleKeyUp}
+                    key="Добавить новый чат"
+                    leftIcon={<AddIcon />}
+                    onClick={this.handleAddChat}
+		            className="addChat"
+                    children= {<TextField
+                        key="textField"
+                        fullWidth
+                        name="input"
+                        hintText="Добавить новый чат"
+                        onChange={this.handleChange}
+                        value={this.state.input}
+                        onKeyUp={this.handleKeyUp}
                    />}
                 />   
             </List>

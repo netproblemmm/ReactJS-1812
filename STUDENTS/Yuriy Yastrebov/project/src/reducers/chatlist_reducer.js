@@ -2,7 +2,8 @@
 import update from 'react-addons-update'
 
 //actions
-import {SEND_MESSAGE, SUCCESS_MESSAGES_LOADING} from '../actions/message_actions.js'
+import {SEND_MESSAGE} from '../actions/message_actions.js'
+import {SUCCESS_CHATS_LOADING} from '../actions/chat_actions.js'
 import {ADD_CHAT} from '../actions/chat_actions.js'
 
 let initialStore = {
@@ -20,14 +21,9 @@ export default function chatReducer (store = initialStore, action) {
                 }}},
             })
         }
-        case SUCCESS_MESSAGES_LOADING: {
-            let chats = {...store.chats}
-            action.payload.forEach(msg => {
-                let {id, chatId} = msg
-                chats[chatId].messageList.push(id)
-            })
+        case SUCCESS_CHATS_LOADING: {
             return update(store, {
-                chats: {$set: chats},
+                chats: {$set: action.payload.entities.chats},
                 isLoading: {$set: false},
             })
         }
